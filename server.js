@@ -17,6 +17,7 @@ const isSignedIn = require('./middleware/is-signed-in');
 
 // Controllers
 const authCtrl = require('./controllers/auth');
+const bookCtrl = require('./controllers/books');
 
 // Set the port from environment variable or default to 3000
 const port = process.env.PORT ? process.env.PORT : '3000';
@@ -50,13 +51,11 @@ app.get('/', async (req, res) => {
 });
 
 app.use('/auth', authCtrl);
+app.use('/book', bookCtrl); 
 
 // ---------- PROTECTED ROUTES ----------
 app.use(isSignedIn);
 
-app.get('/vip-lounge', async (req, res) => {
-  res.send('VIP PAGE');
-});
 
 app.listen(port, () => {
   console.log(`The express app is ready on port ${port}!`);
