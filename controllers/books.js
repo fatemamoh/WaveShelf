@@ -41,7 +41,19 @@ router.post('/', async (req, res) => {
 })
 
 
+// SHOW: 
 
+router.get('/:bookId', async (req, res) => {
+    try {
+        const Books = await Book.findById(req.params.bookId).populate('owner');
+        res.render('books/show.ejs', { Books });
+    }
+
+    catch (error) {
+        console.error(error)
+        res.redirect('/book')
+    }
+})
 
 
 module.exports = router
