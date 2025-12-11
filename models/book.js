@@ -18,7 +18,9 @@ const bookSchema = new mongoose.Schema({
 
     mood: {
         type: String,
-        required: true
+        required: true,
+        enum: ['thrilled','happy','excited','nostalgic','heartbroken','inspired','bored'], 
+        default:'happy'
     },
 
     startDate: {
