@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Edit <%= Books.title %>
+    </title>
+</head>
+
+<body>
+    <%- include('../partials/_navbar.ejs') %>
+        <h1>Edit a Book!</h1>
+
+        <form action="/book/<%= Books._id %>?_method=PUT" method="POST">
+            <label for="title">Title:</label>
+            <input type="text" id="title" name="title" required value="<%= Books.title %>">
+
+            <label for="author">Author:</label>
+            <input type="text" id="author" name="author" required value="<%= Books.author %>">
+
+            <label for="genre">Genre:</label>
+            <input type="text" id="genre" name="genre" required value="<%= Books.genre %>">
+
+            <label for="mood">Mood:</label>
+            <select id="mood" name="mood">
+                <option value="thrilled" <%= Books.mood ==="thrilled" ? "selected" : "" %>>thrilled</option>
+                <option value="happy" <%= Books.mood ==="happy" ? "selected" : "" %>>happy</option>
+                <option value="excited" <%= Books.mood ==="excited" ? "selected" : "" %>>excited</option>
+                <option value="nostalgic" <%= Books.mood ==="nostalgic" ? "selected" : "" %>>nostalgic</option>
+                <option value="heartbroken" <%= Books.mood ==="heartbroken" ? "selected" : "" %>>heartbroken</option>
+                <option value="inspired" <%= Books.mood ==="inspired" ? "selected" : "" %>>inspired</option>
+                <option value="bored" <%= Books.mood ==="bored" ? "selected" : "" %>>bored</option>
+            </select>
+
+            <label for="startDate">Start Date:</label>
+            <input type="date" id="startDate" name="startDate" required value="<%= Books.startDate.toISOString().slice(0, 10) %>">
+
+
+            <button type="submit"> Update Book</button>
+            </form>
+
+</body>
+
+</html>

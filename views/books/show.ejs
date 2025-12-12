@@ -22,6 +22,7 @@
         </p>
 
         <% if (Books.owner._id.equals(user._id)){ %>
+            <a href="/book/<%= Books._id %>/edit">Edit book</a>
             <form action="/book/<%= Books._id %>?_method=DELETE" method="POST">
                 <button type="submit">Delete the book</button>
             </form>

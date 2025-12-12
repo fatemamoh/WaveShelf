@@ -58,23 +58,60 @@ router.get('/:bookId', async (req, res) => {
 })
 
 // delete:
-router.delete('/:bookId', async (req,res)=>{
+router.delete('/:bookId', async (req, res) => {
     try {
-    const Books = await Book.findById(req.params.bookId);
-    const isOwner = Books.owner.equals(req.session.user._id)
-    if (isOwner){
-        await Books.deleteOne();
-        res.redirect('/book');
-    }   
-    else {
-        res.send(" you don't have permission to dp that!")
+        const Books = await Book.findById(req.params.bookId);
+        const isOwner = Books.owner.equals(req.session.user._id)
+        if (isOwner) {
+            await Books.deleteOne();
+            res.redirect('/book');
+        }
+        else {
+            res.send(" you don't have permission to do that!")
+        }
     }
-    } 
-    
+
     catch (error) {
         console.error(error);
         res.redirect('/');
     }
+})
+
+// edit: 
+
+router.get('/:bookId/edit', async (req, res) => {
+    try {
+        const Books = await Book.findById(req.params.bookId);
+        res.render('books/edit.ejs', { Books });
+    }
+
+    catch (error) {
+        console.error(error);
+        res.redirect('/');
+    }
+
+})
+
+// update: 
+
+router.put('/:bookId', async (req, res) => {
+    try {
+        const Books = await Book.findById(req.params.bookId);
+        const isOwner = Books.owner.equals(req.session.user._id)
+        if (isOwner) {
+            Books.set(req.body);
+            await Books.save();
+            res.redirect(`/book/${Books._id}`);
+        }
+        else {
+            res.send("You don't have permission to do that.");
+        }
+    } catch (error) {
+        console.error(error)
+        res.redirect('/')
+    }
+
+
 })
 
 module.exports = router
