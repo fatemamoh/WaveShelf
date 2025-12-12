@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Quote from <%= Books.title %></title>
+</head>
+<body>
+        <%- include('../partials/_navbar.ejs') %>
+<h1>Edit Quote from <%= Books.title %></h1>
+    <a href="/book/<%= Books._id %>">← Back to Book Details</a>
+
+    <form action="/book/<%= Books._id %>/quotes/<%= quote._id %>?_method=PUT" method="POST">
+        
+        <label for="quote">Quote Text:</label>
+        <textarea id="quote" name="quote" rows="5" required><%= quote.quote %></textarea>
+        <br>
+
+        <label for="pageNumber">Page Number:</label>
+        <input type="number" id="pageNumber" name="pageNumber" required min="1" value="<%= quote.pageNumber %>">
+        <br>
+
+        <label for="emotion">Emotion/Feeling:</label>
+        <select id="emotion" name="emotion">
+            <option value="Amusement" <%= quote.emotion === "Amusement" ? "selected" : "" %>>Amusement </option>
+            <option value="Anger" <%= quote.emotion === "Anger" ? "selected" : "" %>>Anger</option>
+            <option value="Grief" <%= quote.emotion === "Grief" ? "selected" : "" %>>Grief</option>
+            <option value="Calm" <%= quote.emotion === "Calm" ? "selected" : "" %>>Calm</option>
+            <option value="Fear" <%= quote.emotion === "Fear" ? "selected" : "" %>>Fear</option>
+            <option value="thrill" <%= quote.emotion === "thrill" ? "selected" : "" %>>Thrill</option>
+            <option value="nostalgic" <%= quote.emotion === "nostalgic" ? "selected" : "" %>>Nostalgic</option>
+        </select>
+        <br>
+        
+        <label for="personalNote">Personal Note (Optional):</label>
+        <textarea id="personalNote" name="personalNote"><%= quote.personalNote %></textarea>
+        <br>
+
+        <button type="submit">Update Quote</button>
+    </form>
+</body>
+</html>

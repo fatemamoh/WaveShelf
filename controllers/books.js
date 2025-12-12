@@ -119,6 +119,8 @@ router.put('/:bookId', async (req, res) => {
 
 
 // the quote Schema:
+
+//create: 
 router.get('/:bookId/quotes/new', async (req, res) => {
     try {
         const Books = await Book.findById(req.params.bookId);
@@ -147,4 +149,36 @@ router.post('/:bookId/quotes', async (req, res) => {
     }
 })
 
+// edit: 
+router.get('/:bookId/quotes/:quoteId/edit', async (req, res) => {
+    try {
+        const Books = await Book.findById(req.params.bookId);
+        const quote = Books.quotes.id(req.params.quoteId);
+        res.render('books/editQuote.ejs', { Books, quote });
+    }
+    catch (error) {
+        console.error(error);
+        res.redirect(`/book/${req.params.bookId}`);
+    }
+})
 module.exports = router
+
+router.put('/:bookId/quotes/:quoteId', async (req, res) => {
+    try {
+        const Books = await Book.findById(req.params.bookId);
+        const isOwner = Books.owner.equals(req.session.user._id);
+        if (isOwner) {
+            const quote = Books.quotes.id(req.params.quoteId);
+            quote.set(req.body);
+            await Books.save();
+            res.redirect(`/book/${Books._id}`);
+        }
+        else {
+            res.send("You don't have permission to edit this quote!");
+        }
+    }
+    catch (error) {
+        console.error(error);
+        res.redirect(`/book/${req.params.bookId}`);
+    }
+})
