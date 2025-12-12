@@ -24,21 +24,34 @@
 
             <label for="mood">Mood:</label>
             <select id="mood" name="mood">
-                <option value="thrilled" <%= Books.mood ==="thrilled" ? "selected" : "" %>>thrilled</option>
-                <option value="happy" <%= Books.mood ==="happy" ? "selected" : "" %>>happy</option>
-                <option value="excited" <%= Books.mood ==="excited" ? "selected" : "" %>>excited</option>
-                <option value="nostalgic" <%= Books.mood ==="nostalgic" ? "selected" : "" %>>nostalgic</option>
-                <option value="heartbroken" <%= Books.mood ==="heartbroken" ? "selected" : "" %>>heartbroken</option>
-                <option value="inspired" <%= Books.mood ==="inspired" ? "selected" : "" %>>inspired</option>
-                <option value="bored" <%= Books.mood ==="bored" ? "selected" : "" %>>bored</option>
+                <option value="thrilled" <%=Books.mood==="thrilled" ? "selected" : "" %>>thrilled</option>
+                <option value="happy" <%=Books.mood==="happy" ? "selected" : "" %>>happy</option>
+                <option value="excited" <%=Books.mood==="excited" ? "selected" : "" %>>excited</option>
+                <option value="nostalgic" <%=Books.mood==="nostalgic" ? "selected" : "" %>>nostalgic</option>
+                <option value="heartbroken" <%=Books.mood==="heartbroken" ? "selected" : "" %>>heartbroken</option>
+                <option value="inspired" <%=Books.mood==="inspired" ? "selected" : "" %>>inspired</option>
+                <option value="bored" <%=Books.mood==="bored" ? "selected" : "" %>>bored</option>
+            </select>
+
+            <label for="status">Status:</label>
+            <select id="status" name="status" required>
+                <option value="To Read" <%=Books.status==="To Read" ? "selected" : "" %>>To Read</option>
+                <option value="Reading" <%=Books.status==="Reading" ? "selected" : "" %>>Reading</option>
+                <option value="Finished" <%=Books.status==="Finished" ? "selected" : "" %>>Finished</option>
             </select>
 
             <label for="startDate">Start Date:</label>
-            <input type="date" id="startDate" name="startDate" required value="<%= Books.startDate.toISOString().slice(0, 10) %>">
+            <input type="date" id="startDate" name="startDate" required
+                value="<%= Books.startDate.toISOString().slice(0, 10) %>">
 
+            <label for="finishDate">Finish Date: </label>
+            <input type="date" name="finishDate" id="finishDate" value="<%= Books.finishDate ? Books.finishDate.toISOString().split('T')[0] : '' %>">
+
+            <label for="rating">Rating: </label>
+            <input type="text" name="rating" id="rating" min="1" max="5" value="<%= Books.rating || '' %>">
 
             <button type="submit"> Update Book</button>
-            </form>
+        </form>
 
 </body>
 
