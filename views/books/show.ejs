@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <%- include('../partials/_navbar.ejs') %>
+        <h2>Details</h2>
+        <p> Title: <%= Books.title %>
+        </p>
+        <p> Author: <%= Books.author %>
+        </p>
+        <p>Genre: <%= Books.genre %>
+        </p>
+        <p>Mood: <%= Books.mood %>
+        </p>
+        <p>Start Date: <%= Books.startDate %>
+        </p>
+</body>
+
+</html>

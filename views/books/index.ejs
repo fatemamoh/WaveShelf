@@ -16,6 +16,7 @@
             <% Books.forEach((book)=> { %>
                 <li>
                     <%= book.title %> owned by <%= book.owner.username%>
+                    <a href="/book/<%= book._id %>"> Details</a>
                 </li>
 
                 <% }) %>
