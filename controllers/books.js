@@ -182,3 +182,24 @@ router.put('/:bookId/quotes/:quoteId', async (req, res) => {
         res.redirect(`/book/${req.params.bookId}`);
     }
 })
+
+//delete:
+
+router.delete('/:bookId/quotes/:quoteId', async (req, res) => {
+
+    try {
+        const Books = await Book.findById(req.params.bookId);
+        const isOwner = Books.owner.equals(req.session.user._id);
+        if (isOwner) {
+            Books.quotes.pull(req.params.quoteId);
+            await Books.save();
+            res.redirect(`/book/${Books._id}`);
+        } else {
+            res.send("You don't have permission to edit this quote!");
+        }
+    } catch (error) {
+        console.error(error);
+        res.redirect(`/book/${req.params.bookId}`);
+    }
+
+})
