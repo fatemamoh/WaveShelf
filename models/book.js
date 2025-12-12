@@ -29,7 +29,6 @@ const quoteSchema = new mongoose.Schema({
         type: Date,
         default: Date.now,
     },
-
 });
 
 const bookSchema = new mongoose.Schema({
@@ -74,9 +73,9 @@ const bookSchema = new mongoose.Schema({
 
 
 },
-{
-    timestamps: true,
-})
+    {
+        timestamps: true,
+    })
 
 const Book = mongoose.model('Book', bookSchema);
 

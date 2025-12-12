@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Quote to <%= Books.title %></title>
+</head>
+<body>
+    <%- include('../partials/_navbar.ejs') %>
+    
+    <h1>Add a New Quote for <%= Books.title %></h1>
+    <a href="/book/<%= Books._id %>">← Back to Book Details</a>
+
+    <form action="/book/<%= Books._id %>/quotes" method="POST">
+        
+        <label for="quote">Quote Text:</label>
+        <textarea id="quote" name="quote" rows="5" required></textarea>
+
+        <label for="pageNumber">Page Number:</label>
+        <input type="number" id="pageNumber" name="pageNumber" required min="1">
+
+        <label for="emotion">Emotion/Feeling:</label>
+        <select id="emotion" name="emotion">
+            <option value="Amusement" selected>Amusement </option>
+            <option value="Anger">Anger</option>
+            <option value="Grief">Grief</option>
+            <option value="Calm">Calm</option>
+            <option value="Fear">Fear</option>
+            <option value="thrill">Thrill</option>
+            <option value="nostalgic">Nostalgic</option>
+        </select>
+        
+        <label for="personalNote">Personal Note (Optional):</label>
+        <textarea type="text" id="personalNote" name="personalNote"> </textarea>
+
+        <button type="submit">Save Quote</button>
+    </form>
+</body>
+</html>

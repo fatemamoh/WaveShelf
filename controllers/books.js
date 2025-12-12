@@ -5,6 +5,8 @@ const Book = require('../models/book');
 
 // CRUD routes: 
 
+// the book Schema:
+
 // create: 
 
 router.get('/', async (req, res) => {
@@ -58,6 +60,7 @@ router.get('/:bookId', async (req, res) => {
 })
 
 // delete:
+
 router.delete('/:bookId', async (req, res) => {
     try {
         const Books = await Book.findById(req.params.bookId);
@@ -112,6 +115,36 @@ router.put('/:bookId', async (req, res) => {
     }
 
 
+})
+
+
+// the quote Schema:
+router.get('/:bookId/quotes/new', async (req, res) => {
+    try {
+        const Books = await Book.findById(req.params.bookId);
+        res.render('books/quotes.ejs', { Books });
+
+    } catch (error) {
+        console.error(error);
+        res.redirect(`/book/${req.params.bookId}`);
+    }
+})
+router.post('/:bookId/quotes', async (req, res) => {
+    try {
+        const book = await Book.findById(req.params.bookId);
+        const isOwner = book.owner.equals(req.session.user._id);
+        if (isOwner) {
+            book.quotes.push(req.body);
+            await book.save();
+            res.redirect(`/book/${book._id}`);
+        } else {
+            res.send("You don't have permission to add a quote to this book!");
+        }
+
+    } catch (error) {
+        console.error(error);
+        res.redirect(`/book/${req.params.bookId}`);
+    }
 })
 
 module.exports = router

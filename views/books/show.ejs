@@ -22,12 +22,41 @@
         </p>
 
         <% if (Books.owner._id.equals(user._id)){ %>
-            <a href="/book/<%= Books._id %>/edit">Edit book</a>
-            <form action="/book/<%= Books._id %>?_method=DELETE" method="POST">
-                <button type="submit">Delete the book</button>
-            </form>
+            <hr>
 
-            <%}%>
+            <h3>My Saved Quotes (<%= Books.quotes ? Books.quotes.length : 0 %>)</h3>
+
+            <a href="/book/<%= Books._id %>/quotes/new">Add a New Quote</a>
+
+            <hr>
+           <% if (Books.quotes && Books.quotes.length > 0) { %>
+            <ul>
+                <% Books.quotes.forEach(quote=> { %>
+                    <li>
+                        <strong>Page <%= quote.pageNumber %>:</strong> "<%= quote.quote %>"
+                            <br>
+                            *Feeling: <%= quote.emotion %>* | Saved on: <%= quote.createdDate.toLocaleDateString() %>
+
+                                    <% if (quote.personalNote) { %>
+                                        <p>Note: <%= quote.personalNote %>
+                                        </p>
+                                        <% } %>
+                    </li>
+                    <hr>
+                    <% }) %>
+            </ul>
+            <% } else { %>
+                <p>You haven't saved any quotes for this book yet.</p>
+                <% } %>
+
+                    <hr>
+
+                    <a href="/book/<%= Books._id %>/edit">Edit book</a>
+                    <form action="/book/<%= Books._id %>?_method=DELETE" method="POST">
+                        <button type="submit">Delete the book</button>
+                    </form>
+
+                    <%}%>
 </body>
 
 </html>
