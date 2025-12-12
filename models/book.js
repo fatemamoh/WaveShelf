@@ -71,6 +71,23 @@ const bookSchema = new mongoose.Schema({
 
     quotes: [quoteSchema],
 
+    status: {
+        type: String,
+        required: true, 
+        enum:['To Read', 'Reading', 'Finished'],
+        defult: 'to Read',
+    },
+
+    finishDate:{
+        type: Date,
+    },
+
+    rating:{
+        type: Number,
+        min:1,
+        max:5,
+    },
+
 
 },
     {
