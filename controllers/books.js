@@ -5,6 +5,8 @@ const Book = require('../models/book');
 
 // CRUD routes: 
 
+// create: 
+
 router.get('/', async (req, res) => {
     try {
         const Books = await Book.find().populate('owner');
@@ -41,7 +43,7 @@ router.post('/', async (req, res) => {
 })
 
 
-// SHOW: 
+// show: 
 
 router.get('/:bookId', async (req, res) => {
     try {
@@ -55,5 +57,24 @@ router.get('/:bookId', async (req, res) => {
     }
 })
 
+// delete:
+router.delete('/:bookId', async (req,res)=>{
+    try {
+    const Books = await Book.findById(req.params.bookId);
+    const isOwner = Books.owner.equals(req.session.user._id)
+    if (isOwner){
+        await Books.deleteOne();
+        res.redirect('/book');
+    }   
+    else {
+        res.send(" you don't have permission to dp that!")
+    }
+    } 
+    
+    catch (error) {
+        console.error(error);
+        res.redirect('/');
+    }
+})
 
 module.exports = router

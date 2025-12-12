@@ -20,6 +20,13 @@
         </p>
         <p>Start Date: <%= Books.startDate %>
         </p>
+
+        <% if (Books.owner._id.equals(user._id)){ %>
+            <form action="/book/<%= Books._id %>?_method=DELETE" method="POST">
+                <button type="submit">Delete the book</button>
+            </form>
+
+            <%}%>
 </body>
 
 </html>
