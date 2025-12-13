@@ -4,9 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>
-        <%= Books.title %>
-    </title>
+    <title> <%= Books.title %></title>
 </head>
 
 <body>
@@ -18,16 +16,18 @@
     <p>Genre: <%= Books.genre %></p>
     <p>Mood: <%= Books.mood %></p>
     <p>Status: <%= Books.status %></p>
+    <p>Start Date: <%= Books.startDate.toLocaleDateString() %></p>
 
     <% if (Books.finishDate) { %>
     <p>Finish Date: <%= Books.finishDate.toLocaleDateString() %></p>
     <% } %>
 
-    <% if (Books.rating) { %>
-    <p>Rating: <%= Books.rating %> / 5</p>
-    <% } %>
-
-    <p>Start Date: <%= Books.startDate.toLocaleDateString() %></p>
+    <% 
+    if (Books.reviews && Books.reviews.length > 0){ 
+        const currentRating = Books.reviews[Books.reviews.length - 1].rating;
+        %>
+        <p>Rating: <%= currentRating %> / 5</p>
+    <% }%>
 
     <% if (Books.owner._id.equals(user._id)){ %>
     <hr>
@@ -52,9 +52,24 @@
             </form>    
 
         <% } %>
+
+        <hr>
+        <h3>Book Review</h3>
+        <% if (Books.status === 'Finished') { %>
+
+        <% if (Books.reviews && Books.reviews.length === 0){ %>
+         <a href="/book/<%= Books._id %>/review/new">Write Your Final Review →</a>
+        <%} else { %>
+            <% const finalReview = Books.reviews[Books.reviews.length - 1]; %>
+            <h4>Completed Review (<%= finalReview.rating %>/5)</h4>
+            <p>"<%= finalReview.reviewText %>"</p>
+            <%} %>
+            <% } else { %>
+        <p>Finish your book to unlock the final review feature!</p>
+    <% } %>
+    <hr>
     
-    
-    <h3>My Saved Quotes (<%= Books.quotes ? Books.quotes.length : 0 %>)</h3>
+    <h3>My Quotes (<%= Books.quotes ? Books.quotes.length : 0 %>)</h3>
 
     <a href="/book/<%= Books._id %>/quotes/new">Add a New Quote</a>
 
@@ -72,6 +87,8 @@
 <p>Note: <%= quote.personalNote %>
 </p>
 <% } %>
+
+
   <div>
  <a  href="/book/<%= Books._id %>/quotes/<%= quote._id %>/edit">Edit Quote</a>
 

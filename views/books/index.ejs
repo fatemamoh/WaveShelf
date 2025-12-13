@@ -73,9 +73,10 @@
                     <li>
                         <strong> <%= book.title %></strong> owned by <%= book.owner.username %>
                         <p> Completed!</p>
-                        <% if (book.rating) { %>
-                            (Rated <%= book.rating %>/5)
-                        <% } %>
+                        <% if (book.reviews && book.reviews.length > 0) { %>
+                        <% const latestReview = book.reviews[book.reviews.length - 1]; %>
+                        (Rated <%= latestReview.rating %>/5)
+            <%          } %>
                         <a href="/book/<%= book._id%>"> Details</a>
                     </li>
                 <% }) %>

@@ -55,9 +55,6 @@
             <input type="date" name="finishDate" id="finishDate"
                 value="<%= Books.finishDate ? Books.finishDate.toISOString().split('T')[0] : '' %>">
 
-            <label for="rating">Rating: </label>
-            <input type="number" name="rating" id="rating" min="1" max="5" value="<%= Books.rating || '' %>">
-
             <button type="submit"> Update Book</button>
         </form>
 

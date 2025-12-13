@@ -209,6 +209,47 @@ router.delete('/:bookId/quotes/:quoteId', async (req, res) => {
 
 })
 
+  // review:
+// get:
+
+router.get('/:bookId/review/new', async(req,res)=>{
+    try {
+        const Books = await Book.findById(req.params.bookId);
+        const isOwner = Books.owner.equals(req.session.user._id);
+        if (!isOwner) {
+            return res.send("You don't have permission to write a review for this book!");
+        }
+        if (Books.status !== 'Finished') { 
+            return res.send("You can only write a review for a book marked as 'Finished'.");
+        } 
+        res.render('books/review.ejs', {Books});
+        
+    } catch (error) {
+        console.error(error);
+        res.redirect(`/book/${req.params.bookId}`);
+    }
+})
+
+router.post('/:bookId/review', async (req,res)=>{
+    try {
+        const Books = await Book.findById(req.params.bookId);
+        const isOwner = Books.owner.equals(req.session.user._id);
+        if (!isOwner) {
+            return res.send("You don't have permission to review this book!");
+        }
+        if (Books.status !== 'Finished') { 
+            return res.send("You can only submit a review for a book marked as 'Finished'.");
+        } 
+        Books.reviews.push(req.body);
+        await Books.save();
+        res.redirect(`/book/${Books._id}`)
+        
+    } catch (error) {
+         console.error(error);
+        res.redirect(`/book/${req.params.bookId}/review/new`);
+    }
+})
+
 // progress bar:
 
 router.put('/:bookId/progress', async (req, res) => {
