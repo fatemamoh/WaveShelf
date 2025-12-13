@@ -8,20 +8,37 @@
 </head>
 
 <body>
-      <%- include('../partials/_navbar.ejs') %>
-    <h1>Books List </h1>
-    <a href="/book/new">Add a new book</a>
-    <div>
-        <ul>
-            <% Books.forEach((book)=> { %>
-                <li>
-                    <%= book.title %> owned by <%= book.owner.username%>
-                    <a href="/book/<%= book._id %>"> Details</a>
-                </li>
+    <%- include('../partials/_navbar.ejs') %>
+        <h1>Books List </h1>
+        <a href="/book/new">Add a new book</a>
+        <div>
+            <ul>
+                <% Books.forEach((book)=> { %>
+                    <li>
+                        <strong> <%= book.title %></strong> owned by <%= book.owner.username %>
+                        <% 
+                        const total = book.totalPages
+                        const current = book.currentPage
+                        const percentage = (total && total > 0)
+                        ? Math.round((current/ total)* 100)
+                        : 0;
+                        %>
+                        <% if (book.status === 'Reading' || book.status === 'Finished'){ %>
+                            <p>
+                                <%= current %> / <%= total  %> pages | 
+                                <strong> <%= percentage %>% Read </strong>
+                            </p>
+                            <progress value="<%= percentage %>" max="100" style="width: 250px; height: 15px;"></progress>
 
-                <% }) %>
-        </ul>
-    </div>
+                            <% } else if (book.status === 'To Read') { %>
+                            <p> Not Started Yet</p>
+                            <% } %>
+                            <a href="/book/<%= book._id %>"> Details</a>
+                    </li>
+
+               <% }) %>
+            </ul>
+        </div>
 </body>
 
 </html>

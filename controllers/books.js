@@ -203,4 +203,45 @@ router.delete('/:bookId/quotes/:quoteId', async (req, res) => {
 
 })
 
+// progress bar:
+
+router.put('/:bookId/progress', async (req, res) => {
+    try {
+        const Books = await Book.findById(req.params.bookId);
+        const isOwner = Books.owner.equals(req.session.user._id);
+
+        if (isOwner) {
+            let newPage = parseInt(req.body.currentPage);
+            if (isNaN(newPage) || newPage < 0) {
+                newPage = Books.currentPage;
+            }
+
+            if (newPage > Books.totalPages) {
+                newPage = Books.totalPages;
+            }
+
+            if (newPage > 0 && Books.status === 'To Read') {
+                Books.status = 'Reading';
+            }
+
+            if (newPage === Books.totalPages && book.status !== 'Finished') {
+                Books.status = 'Finished';
+            }
+
+            Books.currentPage = newPage;
+            await Books.save();
+            res.redirect(`/book/${Books._id}`)
+
+        } else {
+            res.send("You don't have permission to update this book's progress.");
+        }
+
+    }
+
+    catch (error) {
+        console.error(error);
+        res.redirect(`/book/${req.params.bookId}`);
+    }
+})
+
 module.exports = router

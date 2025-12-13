@@ -20,7 +20,14 @@
             <input type="text" id="author" name="author" required value="<%= Books.author %>">
 
             <label for="genre">Genre:</label>
-            <input type="text" id="genre" name="genre" required value="<%= Books.genre %>">
+            <input type="text" id="genre" name="genre" required min="1"  value="<%= Books.genre %>">
+
+            <label for="totalPages">Total Pages:</label>
+            <input type="number" name="totalPages" id="totalPages" required value="<%= Books.totalPages %>">
+
+
+            <label for="currentPage">Current Pages:</label>
+            <input type="number" name="currentPage" id="currentPage" min="1" value="<%= Books.currentPages %>">
 
             <label for="mood">Mood:</label>
             <select id="mood" name="mood">
@@ -45,7 +52,8 @@
                 value="<%= Books.startDate.toISOString().slice(0, 10) %>">
 
             <label for="finishDate">Finish Date: </label>
-            <input type="date" name="finishDate" id="finishDate" value="<%= Books.finishDate ? Books.finishDate.toISOString().split('T')[0] : '' %>">
+            <input type="date" name="finishDate" id="finishDate"
+                value="<%= Books.finishDate ? Books.finishDate.toISOString().split('T')[0] : '' %>">
 
             <label for="rating">Rating: </label>
             <input type="number" name="rating" id="rating" min="1" max="5" value="<%= Books.rating || '' %>">

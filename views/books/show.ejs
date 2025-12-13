@@ -11,78 +11,90 @@
 
 <body>
     <%- include('../partials/_navbar.ejs') %>
-        <h2>Details</h2>
-        <p> Title: <%= Books.title %>
-        </p>
-        <p> Author: <%= Books.author %>
-        </p>
-        <p>Genre: <%= Books.genre %>
-        </p>
-        <p>Mood: <%= Books.mood %>
-        </p>
-        <p>Status: <strong>
-                <%= Books.status %>
-            </strong></p>
-        <% if (Books.finishDate) { %>
-            <p>Finish Date: <%= Books.finishDate.toLocaleDateString() %>
-            </p>
-            <% } %>
 
-                <% if (Books.rating) { %>
-                    <p>Rating: <%= Books.rating %> / 5</p>
-                    <% } %>
+    <h2>Details</h2>
+    <p> Title: <%= Books.title %></p>
+    <p> Author: <%= Books.author %></p>
+    <p>Genre: <%= Books.genre %></p>
+    <p>Mood: <%= Books.mood %></p>
+    <p>Status: <%= Books.status %></p>
 
-                        <p>Start Date: <%= Books.startDate.toLocaleDateString() %>
-                        </p>
+    <% if (Books.finishDate) { %>
+    <p>Finish Date: <%= Books.finishDate.toLocaleDateString() %></p>
+    <% } %>
 
-                        <% if (Books.owner._id.equals(user._id)){ %>
-                            <hr>
+    <% if (Books.rating) { %>
+    <p>Rating: <%= Books.rating %> / 5</p>
+    <% } %>
 
-                            <h3>My Saved Quotes (<%= Books.quotes ? Books.quotes.length : 0 %>)</h3>
+    <p>Start Date: <%= Books.startDate.toLocaleDateString() %></p>
 
-                            <a href="/book/<%= Books._id %>/quotes/new">Add a New Quote</a>
+    <% if (Books.owner._id.equals(user._id)){ %>
+    <hr>
+    <h3>Update Reading Progress</h3>
+    <% 
+    const percentage = Books.totalPages && Books.totalPages > 0 
+    ? Math.round((Books.currentPage / Books.totalPages) * 100) : 0;
+    %> 
 
-                            <hr>
-                            <% if (Books.quotes && Books.quotes.length> 0) { %>
-                                <ul>
-                                    <% Books.quotes.forEach(quote=> { %>
-                                        <li>
-                                            <strong>Page <%= quote.pageNumber %>:</strong> "<%= quote.quote %>"
-                                                <br>
-                                                *Feeling: <%= quote.emotion %>* | Saved on: <%=
-                                                        quote.createdDate.toLocaleDateString() %>
+    <% if (Books.totalPages)  { %>
+        <p> Pages Read: <%= Books.currentPage %> / <%= Books.totalPages %></p>
+        <p>Progress: <%= percentage %>% Read </p>  
+        <progress value="<%= percentage %>" max="100" style="width: 300px; height: 25px;"></progress>
+        <br>
 
-                                                        <% if (quote.personalNote) { %>
-                                                            <p>Note: <%= quote.personalNote %>
-                                                            </p>
-                                                            <% } %>
-                                                                <div>
-                                                                    <a
-                                                                        href="/book/<%= Books._id %>/quotes/<%= quote._id %>/edit">Edit
-                                                                        Quote</a>
+        <form action="/book/<%= Books._id %>/progress?_method=PUT" method="POST">
+                <label for="currentPage">I am currently on page:</label>
+                <input type="number" id="currentPage" name="currentPage" min="0" 
+                       max="<%= Books.totalPages %>" value="<%= Books.currentPage %>">
+                <span> / <%= Books.totalPages %></span>
+                <button type="submit">Update Page</button>
+            </form>    
 
-                                                                    <form
-                                                                        action="/book/<%= Books._id %>/quotes/<%= quote._id %>?_method=DELETE"
-                                                                        method="POST" style="display: inline;">
-                                                                        <button type="submit">Delete Quote</button>
-                                                                    </form>
-                                                                </div>
-                                        </li>
-                                        <hr>
-                                        <% }) %>
-                                </ul>
-                                <% } else { %>
-                                    <p>You haven't saved any quotes for this book yet.</p>
-                                    <% } %>
+        <% } %>
+    
+    
+    <h3>My Saved Quotes (<%= Books.quotes ? Books.quotes.length : 0 %>)</h3>
 
-                                        <hr>
+    <a href="/book/<%= Books._id %>/quotes/new">Add a New Quote</a>
 
-                                        <a href="/book/<%= Books._id %>/edit">Edit book</a>
-                                        <form action="/book/<%= Books._id %>?_method=DELETE" method="POST">
-                                            <button type="submit">Delete the book</button>
-                                        </form>
+    <hr>
+    <% if (Books.quotes && Books.quotes.length> 0) { %>
+    <ul>
+    <% Books.quotes.forEach(quote=> { %>
+    <li>
+    <strong>Page <%= quote.pageNumber %>:</strong> "<%= quote.quote %>"
+    <br>
+    *Feeling: <%= quote.emotion %>* | Saved on: <%=
+    quote.createdDate.toLocaleDateString() %>
 
-                                        <%}%>
+<% if (quote.personalNote) { %>
+<p>Note: <%= quote.personalNote %>
+</p>
+<% } %>
+  <div>
+ <a  href="/book/<%= Books._id %>/quotes/<%= quote._id %>/edit">Edit Quote</a>
+
+ <form
+action="/book/<%= Books._id %>/quotes/<%= quote._id %>?_method=DELETE"
+ method="POST" style="display: inline;">
+ <button type="submit">Delete Quote</button>
+</form>
+ </div>
+</li>
+<hr>
+<% }) %>
+ </ul>
+<% } else { %>
+ <p>You haven't saved any quotes for this book yet.</p>
+ <% } %>
+
+<hr>
+<a href="/book/<%= Books._id %>/edit">Edit book</a>
+<form action="/book/<%= Books._id %>?_method=DELETE" method="POST">
+<button type="submit">Delete the book</button>
+</form>
+<%}%>
 </body>
 
 </html>
