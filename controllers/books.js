@@ -224,7 +224,7 @@ router.put('/:bookId/progress', async (req, res) => {
                 Books.status = 'Reading';
             }
 
-            if (newPage === Books.totalPages && book.status !== 'Finished') {
+            if (newPage === Books.totalPages && Books.status !== 'Finished') {
                 Books.status = 'Finished';
             }
 

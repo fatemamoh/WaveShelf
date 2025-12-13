@@ -11,12 +11,13 @@
     <%- include('../partials/_navbar.ejs') %>
         <h1>Books Tracker </h1>
         <a href="/book/new">Add a new book</a>
+
         <% 
         const toReadBooks = Books.filter(book => book.status === 'To Read');
         const readingBooks = Books.filter(book => book.status === 'Reading');
         const finishedBooks = Books.filter(book => book.status === 'Finished');
-
         %>
+
         <h2> Currently Reading  (<%= readingBooks.length %>) </h2>
         <div>
             <% if (readingBooks.length > 0) { %>
@@ -47,7 +48,44 @@
         <% } %>
         </div>
 
-        
+         <h2> To Read List (<%= toReadBooks.length %>) </h2>
+         <div>
+            <% if (toReadBooks.length > 0 ) { %>
+            <ul>
+                <% toReadBooks.forEach((book)=> { %>
+                    <li>
+                        <strong> <%= book.title %></strong> owned by <%= book.owner.username %>
+                        <p> Not Started Yet</p>
+                        <a href="/book/<%= book._id%>"> Details</a>
+                    </li>
+                <% }) %>
+            </ul>
+            <%} else { %>
+                <p>Your "To Read" list is empty!</p>
+                <% } %>
+         </div>
+
+           <h2> Finished List (<%= finishedBooks.length %>) </h2>
+         <div>
+            <% if (finishedBooks.length > 0 ) { %>
+            <ul>
+                <% finishedBooks.forEach((book)=> { %>
+                    <li>
+                        <strong> <%= book.title %></strong> owned by <%= book.owner.username %>
+                        <p> Completed!</p>
+                        <% if (book.rating) { %>
+                            (Rated <%= book.rating %>/5)
+                        <% } %>
+                        <a href="/book/<%= book._id%>"> Details</a>
+                    </li>
+                <% }) %>
+            </ul>
+            <% } else { %>
+                <p>You haven't finished any book yet!</p>
+                <% } %>
+         </div>
+
+
 </body>
 
 </html>
