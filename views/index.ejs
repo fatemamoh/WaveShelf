@@ -3,9 +3,38 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>WaveShelf</title>
 </head>
 <body>
   <%- include('./partials/_navbar.ejs') %>
+  <% if (user) { %>
+<div class="welcomeUser">
+<h1>Welcome back <%= user.username %>!</h1>
+<p>
+Ready to update your bookshlef? Head over to your dashboard to update your progress,
+ where you can have a reading session with a timer, 
+add your favorite quoutes, or check your reading goals.
+</p>
+<a href="/book">My Bookshelf Dashboard → </a>
+</div>
+
+
+<%  } else { %>
+<div class="welcomeGuest">
+<h1>WaveShelf - Book Tracker </h1>
+<h2> Track your Reading Journey!</h2>
+<p>The best Website, where you can manage your reading lists, track your reading progress,
+    easily save your favorite quotes and thoughts!
+</p>
+
+<a href="/auth/sign-up">
+  Creat Your Account
+</a>
+<p>Already have an account? <a href="/auth/sign-in">Sign In</a></p>
+
+</div>
+
+
+<% } %>
 </body>
 </html>
