@@ -161,7 +161,6 @@ router.get('/:bookId/quotes/:quoteId/edit', async (req, res) => {
         res.redirect(`/book/${req.params.bookId}`);
     }
 })
-module.exports = router
 
 router.put('/:bookId/quotes/:quoteId', async (req, res) => {
     try {
@@ -203,3 +202,5 @@ router.delete('/:bookId/quotes/:quoteId', async (req, res) => {
     }
 
 })
+
+module.exports = router

@@ -51,10 +51,10 @@ app.get('/', async (req, res) => {
 });
 
 app.use('/auth', authCtrl);
-app.use('/book', bookCtrl); 
 
 // ---------- PROTECTED ROUTES ----------
 app.use(isSignedIn);
+app.use('/book', bookCtrl); 
 
 
 app.listen(port, () => {

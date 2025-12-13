@@ -75,7 +75,7 @@ const bookSchema = new mongoose.Schema({
         type: String,
         required: true, 
         enum:['To Read', 'Reading', 'Finished'],
-        defult: 'to Read',
+        default: 'to Read',
     },
 
     finishDate:{
