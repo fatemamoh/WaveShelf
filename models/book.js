@@ -1,5 +1,19 @@
 const mongoose = require('mongoose');
 
+const reviewSchema = new mongoose.Schema({
+    reviewText:{
+        type:String,
+        required: true,
+    }, 
+    rating: {
+        type:Number,
+        min: 1,
+        max:5,
+        required: true,
+
+    },
+});
+
 const quoteSchema = new mongoose.Schema({
     quote: {
         type: String,
@@ -59,11 +73,6 @@ const bookSchema = new mongoose.Schema({
         required: true,
     },
 
-    // image: {
-    //     type: String,
-    //     required: true,
-    // },
-
     owner: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
@@ -94,13 +103,7 @@ const bookSchema = new mongoose.Schema({
         type: Date,
     },
 
-    rating:{
-        type: Number,
-        min:1,
-        max:5,
-    },
-
-
+    reviews: [reviewSchema],
 },
     {
         timestamps: true,

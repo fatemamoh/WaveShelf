@@ -5,6 +5,7 @@ const express = require('express');
 const path = require('path');
 
 const app = express();
+
 // Sessions
 const session = require('express-session');
 const { MongoStore } = require('connect-mongo');
@@ -18,7 +19,6 @@ const isSignedIn = require('./middleware/is-signed-in');
 // Controllers
 const authCtrl = require('./controllers/auth');
 const bookCtrl = require('./controllers/books.js');
-const reviewCtrl = require('./controllers/reviews.js');
 
 // Set the port from environment variable or default to 3000
 const port = process.env.PORT ? process.env.PORT : '3000';
@@ -56,8 +56,6 @@ app.use('/auth', authCtrl);
 // ---------- PROTECTED ROUTES ----------
 app.use(isSignedIn);
 app.use('/book', bookCtrl); 
-app.use('/reviews', reviewCtrl);
-
 
 app.listen(port, () => {
   console.log(`The express app is ready on port ${port}!`);

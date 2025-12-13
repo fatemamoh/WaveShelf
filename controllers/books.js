@@ -85,6 +85,9 @@ router.delete('/:bookId', async (req, res) => {
 router.get('/:bookId/edit', async (req, res) => {
     try {
         const Books = await Book.findById(req.params.bookId);
+       if (!Books.owner.equals(req.session.user._id)) {
+            return res.send("You don't have permission to edit this book!");
+        }
         res.render('books/edit.ejs', { Books });
     }
 
@@ -154,6 +157,9 @@ router.get('/:bookId/quotes/:quoteId/edit', async (req, res) => {
     try {
         const Books = await Book.findById(req.params.bookId);
         const quote = Books.quotes.id(req.params.quoteId);
+        if (!Books.owner.equals(req.session.user._id)) {
+            return res.send("You don't have permission to edit this book!");
+        }
         res.render('books/editQuote.ejs', { Books, quote });
     }
     catch (error) {
@@ -194,7 +200,7 @@ router.delete('/:bookId/quotes/:quoteId', async (req, res) => {
             await Books.save();
             res.redirect(`/book/${Books._id}`);
         } else {
-            res.send("You don't have permission to edit this quote!");
+            res.send("You don't have permission to delete this quote!");
         }
     } catch (error) {
         console.error(error);
@@ -212,7 +218,7 @@ router.put('/:bookId/progress', async (req, res) => {
 
         if (isOwner) {
             let newPage = parseInt(req.body.currentPage);
-            if (isNaN(newPage) || newPage < 0) {
+            if (isNaN(newPage) || newPage < 1) {
                 newPage = Books.currentPage;
             }
 

@@ -45,7 +45,7 @@
 
         <form action="/book/<%= Books._id %>/progress?_method=PUT" method="POST">
                 <label for="currentPage">I am currently on page:</label>
-                <input type="number" id="currentPage" name="currentPage" min="0" 
+                <input type="number" id="currentPage" name="currentPage" min="1" 
                        max="<%= Books.totalPages %>" value="<%= Books.currentPage %>">
                 <span> / <%= Books.totalPages %></span>
                 <button type="submit">Update Page</button>
