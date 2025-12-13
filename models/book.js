@@ -79,10 +79,10 @@ const bookSchema = new mongoose.Schema({
 
     currentPage: {
         type: Number,
-        default: 0,
+        default: 1,
         min:1,
     },
-    
+
     status: {
         type: String,
         required: true, 
