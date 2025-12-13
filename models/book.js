@@ -71,6 +71,18 @@ const bookSchema = new mongoose.Schema({
 
     quotes: [quoteSchema],
 
+    totalPages:{
+        type: Number,
+        min:1,
+        required: true,
+    },
+
+    currentPage: {
+        type: Number,
+        default: 0,
+        min:1,
+    },
+    
     status: {
         type: String,
         required: true, 
