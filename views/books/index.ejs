@@ -9,11 +9,19 @@
 
 <body>
     <%- include('../partials/_navbar.ejs') %>
-        <h1>Books List </h1>
+        <h1>Books Tracker </h1>
         <a href="/book/new">Add a new book</a>
+        <% 
+        const toReadBooks = Books.filter(book => book.status === 'To Read');
+        const readingBooks = Books.filter(book => book.status === 'Reading');
+        const finishedBooks = Books.filter(book => book.status === 'Finished');
+
+        %>
+        <h2> Currently Reading  (<%= readingBooks.length %>) </h2>
         <div>
+            <% if (readingBooks.length > 0) { %>
             <ul>
-                <% Books.forEach((book)=> { %>
+                <% readingBooks.forEach((book)=> { %>
                     <li>
                         <strong> <%= book.title %></strong> owned by <%= book.owner.username %>
                         <% 
@@ -23,22 +31,23 @@
                         ? Math.round((current/ total)* 100)
                         : 0;
                         %>
-                        <% if (book.status === 'Reading' || book.status === 'Finished'){ %>
                             <p>
                                 <%= current %> / <%= total  %> pages | 
                                 <strong> <%= percentage %>% Read </strong>
                             </p>
                             <progress value="<%= percentage %>" max="100" style="width: 250px; height: 15px;"></progress>
 
-                            <% } else if (book.status === 'To Read') { %>
-                            <p> Not Started Yet</p>
-                            <% } %>
                             <a href="/book/<%= book._id %>"> Details</a>
                     </li>
 
                <% }) %>
             </ul>
+            <% } else { %>
+            <p>You are not currently reading any books!</p>
+        <% } %>
         </div>
+
+        
 </body>
 
 </html>
