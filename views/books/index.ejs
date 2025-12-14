@@ -10,7 +10,8 @@
 <body>
     <%- include('../partials/_navbar.ejs') %>
         <h1>All Books </h1>
-        <a href="/book/new">Add a new book</a>
+        <hr>
+        <h4>Here you can find all the books you added</h4>
         <div class="bookContainer">
         <% Books.forEach(book => { %>
           <a href="/book/<%= book._id%>"> 
