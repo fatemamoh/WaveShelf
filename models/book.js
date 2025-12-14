@@ -61,6 +61,11 @@ const bookSchema = new mongoose.Schema({
         required: true
     },
 
+    image:{
+        type:String,
+
+    },
+
     mood: {
         type: String,
         required: true,

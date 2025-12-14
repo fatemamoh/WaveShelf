@@ -238,16 +238,71 @@ router.post('/:bookId/review', async (req,res)=>{
             return res.send("You don't have permission to review this book!");
         }
         if (Books.status !== 'Finished') { 
-            return res.send("You can only submit a review for a book marked as 'Finished'.");
+            return res.send("You can only Edit a review for a book marked as 'Finished'.");
         } 
         Books.reviews.push(req.body);
         await Books.save();
         res.redirect(`/book/${Books._id}`)
-        
+
     } catch (error) {
          console.error(error);
         res.redirect(`/book/${req.params.bookId}/review/new`);
     }
+})
+
+// edit: 
+router.get('/:bookId/review/:reviewId/edit', async (req, res) => {
+    try {
+        const Books = await Book.findById(req.params.bookId);
+        const review = Books.reviews.id(req.params.reviewId);
+        if (!Books.owner.equals(req.session.user._id)) {
+            return res.send("You don't have permission to edit this review!");
+        }
+        res.render('books/editReview.ejs', { Books, review });
+    }
+    catch (error) {
+        console.error(error);
+        res.redirect(`/book/${req.params.bookId}`);
+    }
+})
+router.put('/:bookId/review/:reviewId', async (req, res) => {
+    try {
+        const Books = await Book.findById(req.params.bookId);
+        const isOwner = Books.owner.equals(req.session.user._id);
+        if (isOwner) {
+            const review = Books.reviews.id(req.params.reviewId);
+            review.set(req.body);
+            await Books.save();
+            res.redirect(`/book/${Books._id}`);
+        }
+        else {
+            res.send("You don't have permission to edit this review!");
+        }
+    }
+    catch (error) {
+        console.error(error);
+        res.redirect(`/book/${req.params.bookId}`);
+    }
+})
+
+// delete: 
+router.delete('/:bookId/review/:reviewId', async (req, res) => {
+
+    try {
+        const Books = await Book.findById(req.params.bookId);
+        const isOwner = Books.owner.equals(req.session.user._id);
+        if (isOwner) {
+            Books.reviews.pull(req.params.reviewId);
+            await Books.save();
+            res.redirect(`/book/${Books._id}`);
+        } else {
+            res.send("You don't have permission to delete this review!");
+        }
+    } catch (error) {
+        console.error(error);
+        res.redirect(`/book/${req.params.bookId}`);
+    }
+
 })
 
 // progress bar:

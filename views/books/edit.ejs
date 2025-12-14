@@ -11,6 +11,7 @@
 <body>
     <%- include('../partials/_navbar.ejs') %>
         <h1>Edit a Book!</h1>
+            <a href="/book/<%= Books._id %>">← Back to Book Details</a>
 
         <form action="/book/<%= Books._id %>?_method=PUT" method="POST">
             <label for="title">Title:</label>
