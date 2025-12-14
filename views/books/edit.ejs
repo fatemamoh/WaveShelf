@@ -4,11 +4,12 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Edit <%= Books.title %>
-    </title>
+    <link rel="stylesheet" href="/style.css">
+    <title>Edit <%= Books.title %></title>
 </head>
 
 <body>
+    <div class="container">
     <%- include('../partials/_navbar.ejs') %>
         <h1>Edit a Book!</h1>
             <a href="/book/<%= Books._id %>">← Back to Book Details</a>
@@ -60,7 +61,7 @@
           <input type="url" id="image" name="image" placeholder="Enter the book cover here" required value="<%= Books.image %>">
             <button type="submit"> Update Book</button>
         </form>
-
+</div>
 </body>
 
 </html>

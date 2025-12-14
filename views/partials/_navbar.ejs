@@ -2,13 +2,10 @@
   <% if (user) { %>
     <a href="/">Home</a>
     <a href="/book">My Bookshelf</a>
-    <!-- <a href="/book/toRead">To Read List</a>
-    <a href="/book/reading">Reading List</a>
-    <a href="/book/finished">Finished List</a> -->
-
     <a href="/auth/sign-out">Sign Out</a>
   
     <% } else { %>
+          <a href="/">Home</a>
       <a href="/auth/sign-up">Sign Up</a>
       <a href="/auth/sign-in">Sign In</a>
       <% } %>

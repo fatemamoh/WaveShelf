@@ -3,10 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/style.css">
     <title>Edit Quote from <%= Books.title %></title>
 </head>
 <body>
-        <%- include('../partials/_navbar.ejs') %>
+    <%- include('../partials/_navbar.ejs') %>
+        <div class="container">
 <h1>Edit Quote from <%= Books.title %></h1>
     <a href="/book/<%= Books._id %>">← Back to Book Details</a>
 
@@ -37,6 +39,7 @@
         <br>
 
         <button type="submit">Update Quote</button>
+        </div>
     </form>
 </body>
 </html>

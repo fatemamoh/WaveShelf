@@ -4,14 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>
-        <%= Books.title %>
-    </title>
+    <link rel="stylesheet" href="/style.css">
+    <title><%= Books.title %> </title>
 </head>
 
 <body>
     <%- include('../partials/_navbar.ejs') %>
-
+        <div class="container">
         <h2>Details</h2>
         <img src=<%=Books.image %> alt="">
         <p> Title: <%= Books.title %>
@@ -152,6 +151,7 @@
                                                                                         book</button>
                                                                                 </form>
                                                                                 <%}%>
+        </div>
 </body>
 
 </html>

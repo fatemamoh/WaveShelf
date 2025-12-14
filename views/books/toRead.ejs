@@ -4,12 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="/style.css">
+    <title>To Read List</title>
 </head>
 
 <body>
         <%- include('../partials/_navbar.ejs') %>
-
+        <div class="container">
     <% const toReadBooks=Books.filter(book=> book.status === 'To Read'); %>
         <h2> To Read List (<%= toReadBooks.length %>) </h2>
         <div>
@@ -29,6 +30,7 @@
                 <%} else { %>
                     <p>Your "To Read" list is empty!</p>
                     <% } %>
+        </div>
         </div>
 </body>
 
