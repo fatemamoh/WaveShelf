@@ -9,83 +9,19 @@
 
 <body>
     <%- include('../partials/_navbar.ejs') %>
-        <h1>Books Tracker </h1>
+        <h1>All Books </h1>
         <a href="/book/new">Add a new book</a>
-        <% 
-        const toReadBooks = Books.filter(book => book.status === 'To Read');
-        const readingBooks = Books.filter(book => book.status === 'Reading');
-        const finishedBooks = Books.filter(book => book.status === 'Finished');
-        %>
-
-        <h2> Currently Reading  (<%= readingBooks.length %>) </h2>
-        <div>
-            <% if (readingBooks.length > 0) { %>
-            <ul>
-                <% readingBooks.forEach((book)=> { %>
-                    <li>
-                        <strong> <%= book.title %></strong> owned by <%= book.owner.username %>
-                        <% 
-
-                        const total = book.totalPages
-                        const current = book.currentPage
-                        const percentage = (total && total > 0)
-                        ? Math.round((current/ total)* 100)
-                        : 0;
-                        %>
-                            <p>
-                                <%= current %> / <%= total  %> pages | 
-                                <strong> <%= percentage %>% Read </strong>
-                            </p>
-                            <progress value="<%= percentage %>" max="100" style="width: 250px; height: 15px;"></progress>
-
-                            <a href="/book/<%= book._id %>"> Details</a>
-                    </li>
-
-               <% }) %>
-            </ul>
-            <% } else { %>
-            <p>You are not currently reading any books!</p>
-        <% } %>
+        <div class="bookContainer">
+        <% Books.forEach(book => { %>
+          <a href="/book/<%= book._id%>"> 
+         <div class="bookCard">
+         <img src=<%=book.image %> alt="">
+         <%= book.title %>
         </div>
+         </a>
 
-         <h2> To Read List (<%= toReadBooks.length %>) </h2>
-         <div>
-            <% if (toReadBooks.length > 0 ) { %>
-            <ul>
-                <% toReadBooks.forEach((book)=> { %>
-                    <li>
-                        <strong> <%= book.title %></strong> owned by <%= book.owner.username %>
-                        <p> Not Started Yet</p>
-                        <a href="/book/<%= book._id%>"> Details</a>
-                    </li>
-                <% }) %>
-            </ul>
-            <%} else { %>
-                <p>Your "To Read" list is empty!</p>
-                <% } %>
-         </div>
-
-           <h2> Finished List (<%= finishedBooks.length %>) </h2>
-         <div>
-            <% if (finishedBooks.length > 0 ) { %>
-            <ul>
-                <% finishedBooks.forEach((book)=> { %>
-                    <li>
-                        <strong> <%= book.title %></strong> owned by <%= book.owner.username %>
-                        <p> Completed!</p>
-                        <% if (book.reviews && book.reviews.length > 0) { %>
-                        <% const latestReview = book.reviews[book.reviews.length - 1]; %>
-                        (Rated <%= latestReview.rating %>/5)
-            <%          } %>
-                        <a href="/book/<%= book._id%>"> Details</a>
-                    </li>
-                <% }) %>
-            </ul>
-            <% } else { %>
-                <p>You haven't finished any book yet!</p>
-                <% } %>
-         </div>
-
+        <% }) %>
+</div>
 
 </body>
 

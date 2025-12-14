@@ -14,6 +14,46 @@ router.get('/', async (req, res) => {
         const Books = await Book.find().populate('owner');
         res.render('books/index.ejs', { Books })
     }
+    
+    catch (error) {
+        console.error(error)
+        res.redirect('/')
+    }
+});
+
+// lists routes:
+ // to read: 
+ router.get('/toRead', async (req, res) => {
+    try {
+        const Books = await Book.find().populate('owner');
+        res.render('books/toRead.ejs', { Books })
+    }
+
+    catch (error) {
+        console.error(error)
+        res.redirect('/')
+    }
+});
+
+// reading:
+ router.get('/reading', async (req, res) => {
+    try {
+        const Books = await Book.find().populate('owner');
+        res.render('books/reading.ejs', { Books })
+    }
+
+    catch (error) {
+        console.error(error)
+        res.redirect('/')
+    }
+});
+
+// finished:
+ router.get('/finished', async (req, res) => {
+    try {
+        const Books = await Book.find().populate('owner');
+        res.render('books/finished.ejs', { Books })
+    }
 
     catch (error) {
         console.error(error)
@@ -345,5 +385,9 @@ router.put('/:bookId/progress', async (req, res) => {
         res.redirect(`/book/${req.params.bookId}`);
     }
 })
+
+// lists:
+ // to read: 
+
 
 module.exports = router

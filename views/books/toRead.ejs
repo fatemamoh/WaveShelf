@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+        <%- include('../partials/_navbar.ejs') %>
+
+    <% const toReadBooks=Books.filter(book=> book.status === 'To Read'); %>
+        <h2> To Read List (<%= toReadBooks.length %>) </h2>
+        <div>
+            <% if (toReadBooks.length> 0 ) { %>
+                <ul>
+                    <% toReadBooks.forEach((book)=> { %>
+                        <li>
+                            <strong>
+                                <%= book.title %>
+                            </strong> owned by <%= book.owner.username %>
+                                <p> Not Started Yet</p>
+                                <a href="/book/<%= book._id%>"> Details</a>
+                        </li>
+                        <% }) %>
+                </ul>
+                <%} else { %>
+                    <p>Your "To Read" list is empty!</p>
+                    <% } %>
+        </div>
+</body>
+
+</html>
