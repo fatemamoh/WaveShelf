@@ -16,12 +16,13 @@
             <% if (toReadBooks.length> 0 ) { %>
                 <ul>
                     <% toReadBooks.forEach((book)=> { %>
+                               <a href="/book/<%= book._id%>"> 
+                    <div class="bookCard">
+                    <img src=<%=book.image %> alt="">
+                    </div>
+                    </a>
                         <li>
-                            <strong>
-                                <%= book.title %>
-                            </strong> owned by <%= book.owner.username %>
-                                <p> Not Started Yet</p>
-                                <a href="/book/<%= book._id%>"> Details</a>
+                <p>Not Started Yet!</p>
                         </li>
                         <% }) %>
                 </ul>

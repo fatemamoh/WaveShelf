@@ -17,14 +17,17 @@
             <% if (finishedBooks.length > 0 ) { %>
             <ul>
                 <% finishedBooks.forEach((book)=> { %>
-                    <li>
-                        <strong> <%= book.title %></strong> owned by <%= book.owner.username %>
+                    <a href="/book/<%= book._id%>"> 
+                    <div class="bookCard">
+                    <img src=<%=book.image %> alt="">
+                    </div>
+                    </a>
+                                <li>
                         <p> Completed!</p>
                         <% if (book.reviews && book.reviews.length > 0) { %>
                         <% const latestReview = book.reviews[book.reviews.length - 1]; %>
                         (Rated <%= latestReview.rating %>/5)
             <%          } %>
-                        <a href="/book/<%= book._id%>"> Details</a>
                     </li>
                 <% }) %>
             </ul>
@@ -32,5 +35,7 @@
                 <p>You haven't finished any book yet!</p>
                 <% } %>
          </div>
+   
+</div>
 </body>
 </html>

@@ -18,7 +18,11 @@
             <ul>
                 <% readingBooks.forEach((book)=> { %>
                     <li>
-                        <strong> <%= book.title %></strong> owned by <%= book.owner.username %>
+                    <a href="/book/<%= book._id%>"> 
+                    <div class="bookCard">
+                    <img src=<%=book.image %> alt="">
+                    </div>
+                    </a>
                         <% 
 
                         const total = book.totalPages
