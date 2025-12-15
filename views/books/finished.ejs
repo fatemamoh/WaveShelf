@@ -11,27 +11,25 @@
 
       <% 
         const finishedBooks = Books.filter(book => book.status === 'Finished');
-        %>
+      %>
 
           <h2> Finished List (<%= finishedBooks.length %>) </h2>
          <div>
             <% if (finishedBooks.length > 0 ) { %>
-            <ul>
+            <ul class="horizontal-list">
                 <% finishedBooks.forEach((book)=> { %>
-                    <a href="/book/<%= book._id%>"> 
-                    <div class="bookCard">
-                    <img height="250px" src=<%=book.image %> alt="">
-                    </div>
-                    </a>
-                                <li>
-                        <p> Completed!</p>
-                        <% if (book.reviews && book.reviews.length > 0) { %>
-                        <% const latestReview = book.reviews[book.reviews.length - 1]; %>
-                        (Rated <%= latestReview.rating %>/5)
-            <%          } %>
+                    <li>
+                        <a href="/book/<%= book._id%>"> 
+                            <img src=<%=book.image %> alt="">
+                            <p> Completed!</p>
+                            <% if (book.reviews && book.reviews.length > 0) { %>
+                            <% const latestReview = book.reviews[book.reviews.length - 1]; %>
+                            (Rated <%= latestReview.rating %>/5)
+                            <% } %>
+                        </a>
                     </li>
                 <% }) %>
-            </ul>
+           </ul>
             <% } else { %>
                 <p>You haven't finished any book yet!</p>
                 <% } %>

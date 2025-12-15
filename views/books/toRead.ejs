@@ -15,18 +15,17 @@
         <h2> To Read List (<%= toReadBooks.length %>) </h2>
         <div>
             <% if (toReadBooks.length> 0 ) { %>
-                <ul>
+                <ul class="horizontal-list">
                     <% toReadBooks.forEach((book)=> { %>
-                               <a href="/book/<%= book._id%>"> 
-                    <div class="bookCard">
-                    <img src=<%=book.image %> alt="">
-                    </div>
-                    </a>
+                    
                         <li>
-                <p>Not Started Yet!</p>
+                            <a href="/book/<%= book._id%>"> 
+                                <img src=<%=book.image %> alt="">
+                                <p>Not Started Yet!</p>
+                            </a>
                         </li>
                         <% }) %>
-                </ul>
+               </ul>
                 <%} else { %>
                     <p>Your "To Read" list is empty!</p>
                     <% } %>

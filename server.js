@@ -23,6 +23,8 @@ const bookCtrl = require('./controllers/books.js');
 // Set the port from environment variable or default to 3000
 const port = process.env.PORT ? process.env.PORT : '3000';
 
+app.use('/assets', express.static('assets'));
+
 app.use(express.static(path.join(__dirname, 'public')));
 // Middleware to parse URL-encoded data from forms
 app.use(express.urlencoded({ extended: false }));

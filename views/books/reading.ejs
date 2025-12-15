@@ -11,40 +11,37 @@
         <div class="container">
      <% 
         const readingBooks = Books.filter(book => book.status === 'Reading');
-        %>
+     %>
 
         <h2> Currently Reading  (<%= readingBooks.length %>) </h2>
         <div>
             <% if (readingBooks.length > 0) { %>
-            <ul>
+            <ul class="horizontal-list">
                 <% readingBooks.forEach((book)=> { %>
                     <li>
                     <a href="/book/<%= book._id%>"> 
-                    <div class="bookCard">
-                    <img height="250px" src=<%=book.image %> alt="">
-                    </div>
-                    </a>
+                        <img src=<%=book.image %> alt="">
                         <% 
 
                         const total = book.totalPages
                         const current = book.currentPage
+                     
                         const percentage = (total && total > 0)
                         ? Math.round((current/ total)* 100)
                         : 0;
                         %>
-                            <p>
+                        <p>
                                 <%= current %> / <%= total  %> pages | 
                                 <strong> <%= percentage %>% Read </strong>
-                            </p>
-                            <progress value="<%= percentage %>" max="100" style="width: 250px; height: 15px;"></progress>
-
-                            <a href="/book/<%= book._id %>"> Details</a>
+                        </p>
+                        <progress value="<%= percentage %>" max="100"></progress>
+                    </a>
                     </li>
 
                <% }) %>
             </ul>
             <% } else { %>
-            <p>You are not currently reading any books!</p>
+           <p>You are not currently reading any books!</p>
         <% } %>
         </div>
         </div>

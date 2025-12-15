@@ -14,8 +14,10 @@
         <h1>All Books </h1>
         <hr>
         <h4>Here you can find all the books you added</h4>
+        
         <div class="bookContainer">
         <% Books.forEach(book => { %>
+ 
           <a href="/book/<%= book._id%>"> 
          <div class="bookCard">
          <img height="250px" src=<%=book.image %> alt="">

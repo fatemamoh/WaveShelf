@@ -1,12 +1,14 @@
 <nav>
-  <% if (user) { %>
-    <a href="/">Home</a>
-    <a href="/book">My Bookshelf</a>
-    <a href="/auth/sign-out">Sign Out</a>
-  
-    <% } else { %>
-          <a href="/">Home</a>
-      <a href="/auth/sign-up">Sign Up</a>
-      <a href="/auth/sign-in">Sign In</a>
-      <% } %>
+    <a href="/" class="app-title-link">WaveShelf</a>
+
+    <div class="nav-right-links">
+        <% if (user) { %>
+            <a href="/book">My Bookshelf</a>
+            <a href="/book/new">New Book</a>
+            <a href="/auth/sign-out">Sign Out</a>
+        <% } else { %>
+            <a href="/auth/sign-up">Sign Up</a>
+            <a href="/auth/sign-in">Sign In</a>
+        <% } %>
+    </div>
 </nav>

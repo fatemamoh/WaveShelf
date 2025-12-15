@@ -85,6 +85,9 @@ const bookSchema = new mongoose.Schema({
     },
 
     quotes: [quoteSchema],
+    
+    // FIXED: Changed to an array of reviews to match controller/view logic
+    reviews: [reviewSchema], 
 
     totalPages:{
         type: Number,
@@ -94,27 +97,26 @@ const bookSchema = new mongoose.Schema({
 
     currentPage: {
         type: Number,
-        default: 1,
-        min:1,
+        min: 0,
+        default: 0,
     },
 
     status: {
         type: String,
-        required: true, 
-        enum:['To Read', 'Reading', 'Finished'],
-        default: 'to Read',
+        required: true,
+        enum: ['To Read', 'Reading', 'Finished'],
+        default: 'To Read',
     },
 
-    finishDate:{
+    finishDate: {
         type: Date,
     },
 
-    reviews: [reviewSchema],
-},
-    {
-        timestamps: true,
-    })
+    createdAt: {
+        type: Date,
+        default: Date.now,
+    },
+});
 
-const Book = mongoose.model('Book', bookSchema);
 
-module.exports = Book
+module.exports = mongoose.model('Book', bookSchema);

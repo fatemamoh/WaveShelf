@@ -11,66 +11,105 @@
 
 <div class="container">
 <% if (user) { %>
-<div class="welcomeUser">
-<h1>Welcome back <%= user.username %>!</h1>
-<p>
-Ready to update your bookshlef? Head over to your dashboard to update your progress,
- where you can have a reading session with a timer, 
-add your favorite quoutes, or check your reading goals.
-</p>
-<a href="/book">My Bookshelf Dashboard → </a>
-<hr>
-<h4>want to add a book to your collection?</h4>
-        <a href="/book/new"> → Add a new book</a>
-<hr>
-<h4>Navigate your Book Progress </h4>
-  <div class="listContainer">
-            
-            <div> <a href="/book/toRead">To Read List</a> </div>
-            <div><a href="/book/reading">Reading List</a></div>
-            <div><a href="/book/finished">Finished List</a></div>
-        </div>
- 
 
+<div class="user-hero-section">
+    <div class="user-hero-text">
+        <h1>Welcome back <%= user.username %>!</h1>
+        <p>
+            Welcome to your bookshelf dashboard. You can easily manage your reading lists and track your progress below.
+        </p>
+
+        <div class="action-buttons">
+            <a href="/book/new" class="cta-button">
+                 Add a New Book
+            </a>
+            
+            <a href="/book" class="cta-button secondary-cta-btn">
+                My Bookshelf
+            </a>
+        </div>
+    </div>
 </div>
+    
+<h3>Navigate your Book Progress </h3>
+<div class="listContainer">
+    <a href="/book/toRead">
+        <img class="list-icon" src="/assets/bookPink.png" alt="To Read Icon">
+        <span>To Read List</span>
+    </a>
+ 
+    <a href="/book/reading">
+        <img class="list-icon" src="/assets/books.png" alt="Reading Icon">
+        <span>Reading List</span>
+    </a>
+    
+    <a href="/book/finished">
+        <img class="list-icon" src="/assets/finished.png" alt="Finished Icon">
+        <span>Finished List</span>
+    </a>
+</div>
+
 
 
 <%  } else { %>
 <div class="welcomeGuest">
-  <div class="content">
-    <div class="header">
+
+<div class="hero-section">
+
+<div class="hero-text">
 <h1>WaveShelf</h1>
-<h2> Book Tracker Website </h2>
-<h3> Track your Reading Journey!</h3>
+<h2>Track Every Page, Achieve Every Reading Goal </h2>
+<p> Manage your reading 
+lists, track your progress, save your favorite quotes, and 
+set reading goals—all in one place.</p>
+<a href="/auth/sign-up" class="cta-button"> Start Your Reading Journey → </a>
+ </div>
 
-<div class="textContent">
-  <div>
-<img class="libraryImg" src="https://img.freepik.com/premium-photo/cozy-lofi-library-animestyle-peaceful-inviting_741402-15423.jpg?semt=ais_hybrid&w=740&q=80" alt="library">
   </div>
-  <div><p>The best Website, where you can manage your reading lists, track your reading progress,
-    easily save your favorite quotes and thoughts!
-</p>
+
+<section class="features-grid">
+<h3>WaveShelf Key Features</h3>
+<div class="feature-cards-container">
+<div class="feature-card">
+    <img class="feature-icon-img" src="/assets/shelf.png" alt="Book shelf icon">
+    <h4>Track Progress</h4>
+    <p>Effortlessly log every book and monitor your reading status across all lists.</p>
 </div>
+  
+            <div class="feature-card">
+                <img class="feature-icon-img" src="/assets/quote.png" alt="Bookmark icon for quotes">
+    
+                <h4>Save Quotes</h4>
+                <p>Capture inspiring passages and personal thoughts instantly for review later.</p>
+            </div>
+            <div 
+class="feature-card">
+                <img class="feature-icon-img" src="/assets/review.png" alt="Review and rating icon">
+               
+                <h4>Write Reviews</h4>
+                <p>Share your thoughts and rate books after finishing to keep a personal journal of your reads.</p>
+            
+</div>
+
 
 </div>
 
 
-<a href="/auth/sign-up">
-  Creat Your Account
-</a>
-<p>Already have an account? <a href="/auth/sign-in">Sign In</a></p>
-</div>
-</div>
+</section>
 
+<div class="login-link-footer">
+        <p>Already have an account?
+<a href="/auth/sign-in">Sign In</a></p>
+    </div>
+</div>
 
 <% } %>
+</div>
 <footer>
     <p class="copyright">
     <span class="symbol">&copy;</span> 2025 WaveShelf
 </p>
-
 </footer>
 
-</div>
 </body>
 </html>

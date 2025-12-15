@@ -1,157 +1,115 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/style.css">
     <title><%= Books.title %> </title>
 </head>
-
 <body>
-    <%- include('../partials/_navbar.ejs') %>
-        <div class="container">
-        <h2>Details</h2>
-        <img src=<%=Books.image %> alt="">
-        <p> Title: <%= Books.title %>
-        </p>
-        <p> Author: <%= Books.author %>
-        </p>
-        <p>Genre: <%= Books.genre %>
-        </p>
-        <p>Mood: <%= Books.mood %>
-        </p>
-        <p>Status: <%= Books.status %>
-        </p>
-        <p>Start Date: <%= Books.startDate.toLocaleDateString() %>
-        </p>
-
-        <% if (Books.finishDate) { %>
-            <p>Finish Date: <%= Books.finishDate.toLocaleDateString() %>
-            </p>
-            <% } %>
-
+<%- include('../partials/_navbar.ejs') %>
+<div class="container">
+    <h2><%= Books.title %></h2>
+    <div class="show-page-grid">
+        <div class="book-details-sidebar">
+            <img src=<%=Books.image %> alt="">
+            <div class="book-info-block">
+                <p> <strong>Author:</strong> <%= Books.author %></p>
+                <p><strong>Genre:</strong> <%= Books.genre %></p>
+                <p><strong>Mood:</strong> <%= Books.mood %></p>
+                <p><strong>Status:</strong> <span class="status-<%= Books.status.toLowerCase() %>"><%= Books.status %></span></p>
+                <p><strong>Start Date:</strong> <%= Books.startDate.toLocaleDateString() %></p>
+                <% if (Books.finishDate) { %>
+                    <p><strong>Finish Date:</strong> <%= Books.finishDate.toLocaleDateString() %></p>
+                <% } %>
                 <% if (Books.reviews && Books.reviews.length> 0){
-                    const currentRating = Books.reviews[Books.reviews.length - 1].rating;
-                    %>
-                    <p>Rating: <%= currentRating %> / 5</p>
-                    <% }%>
-
-                        <% if (Books.owner._id.equals(user._id)){ %>
-                            <hr>
-                            <h3>Update Reading Progress</h3>
-                            <% const percentage=Books.totalPages && Books.totalPages> 0
-                                ? Math.round((Books.currentPage / Books.totalPages) * 100) : 0;
-                                %>
-
-                                <% if (Books.totalPages) { %>
-                                    <p> Pages Read: <%= Books.currentPage %> / <%= Books.totalPages %>
-                                    </p>
-                                    <p>Progress: <%= percentage %>% Read </p>
-                                    <progress value="<%= percentage %>" max="100"
-                                        style="width: 300px; height: 25px;"></progress>
-                                    <br>
-
-                                    <form action="/book/<%= Books._id %>/progress?_method=PUT" method="POST">
-                                        <label for="currentPage">I am currently on page:</label>
-                                        <input type="number" id="currentPage" name="currentPage" min="1"
-                                            max="<%= Books.totalPages %>" value="<%= Books.currentPage %>">
-                                        <span> / <%= Books.totalPages %></span>
-                                        <button type="submit">Update Page</button>
-                                    </form>
-
-                                    <% } %>
-
-                                        <hr>
-                                        <h3>Book Review</h3>
-                                        <% if (Books.status==='Finished' ) { %>
-
-                                            <% if (Books.reviews && Books.reviews.length===0){ %>
-                                                <a href="/book/<%= Books._id %>/review/new">Write Your Final Review
-                                                    →</a>
-                                                <%} else { %>
-                                                    <% const finalReview=Books.reviews[Books.reviews.length - 1]; %>
-                                                        <h4>Completed Review (<%= finalReview.rating %>/5)</h4>
-                                                        <p>"<%= finalReview.reviewText %>"</p>
-                                                        <a
-                                                            href="/book/<%= Books._id %>/review/<%= finalReview._id%>/edit">Edit
-                                                            Review </a>
-                                                        <form
-                                                            action="/book/<%= Books._id %>/review/<%= finalReview._id %>?_method=DELETE"
-                                                            method="POST" style="display: inline;">
-                                                            <button type="submit">Delete Review</button>
-                                                        </form>
-
-                                                        <%} %>
-                                                            <% } else { %>
-                                                                <p>Finish your book to unlock the final review feature!
-                                                                </p>
-                                                                <% } %>
-                                                                    <hr>
-                                                                    <h3>My Quotes (<%= Books.quotes ?
-                                                                            Books.quotes.length : 0 %>)</h3>
-
-                                                                    <a href="/book/<%= Books._id %>/quotes/new">Add a
-                                                                        New Quote</a>
-
-                                                                    <hr>
-                                                                    <% if (Books.quotes && Books.quotes.length> 0) { %>
-                                                                        <ul>
-                                                                            <% Books.quotes.forEach(quote=> { %>
-                                                                                <li>
-                                                                                    <strong>Page <%= quote.pageNumber %>
-                                                                                            :</strong> "<%= quote.quote
-                                                                                        %>"
-                                                                                        <br>
-                                                                                        *Feeling: <%= quote.emotion %>*
-                                                                                            | Saved on: <%=
-                                                                                                quote.createdDate.toLocaleDateString()
-                                                                                                %>
-
-                                                                                                <% if
-                                                                                                    (quote.personalNote)
-                                                                                                    { %>
-                                                                                                    <p>Note: <%=
-                                                                                                            quote.personalNote
-                                                                                                            %>
-                                                                                                    </p>
-                                                                                                    <% } %>
-
-
-                                                                                                        <div>
-                                                                                                            <a
-                                                                                                                href="/book/<%= Books._id %>/quotes/<%= quote._id %>/edit">Edit
-                                                                                                                Quote</a>
-
-                                                                                                            <form
-                                                                                                                action="/book/<%= Books._id %>/quotes/<%= quote._id %>?_method=DELETE"
-                                                                                                                method="POST"
-                                                                                                                style="display: inline;">
-                                                                                                                <button
-                                                                                                                    type="submit">Delete
-                                                                                                                    Quote</button>
-                                                                                                            </form>
-                                                                                                        </div>
-                                                                                </li>
-                                                                                <hr>
-                                                                                <% }) %>
-                                                                        </ul>
-                                                                        <% } else { %>
-                                                                            <p>You haven't saved any quotes for this
-                                                                                book yet.</p>
-                                                                            <% } %>
-
-                                                                                <hr>
-                                                                                <a href="/book/<%= Books._id %>/edit">Edit
-                                                                                    book</a>
-                                                                                <form
-                                                                                    action="/book/<%= Books._id %>?_method=DELETE"
-                                                                                    method="POST">
-                                                                                    <button type="submit">Delete the
-                                                                                        book</button>
-                                                                                </form>
-                                                                                <%}%>
+                    const currentRating = Books.reviews[Books.reviews.length - 1].rating; %>
+                    <p><strong>Rating:</strong> <span class="rating-stars"><%= currentRating %> / 5</span></p>
+                <% }%>
+            </div>
         </div>
+        <div class="book-action-section">
+            <% if (Books.owner._id.equals(user._id)){ %>
+                <div class="section-card reading-progress-card">
+                    <h3>Update Reading Progress</h3>
+                    <% const percentage=Books.totalPages && Books.totalPages> 0
+                        ? Math.round((Books.currentPage / Books.totalPages) * 100) : 0; %>
+                    <% if (Books.totalPages) { %>
+                        <p> Pages Read: <%= Books.currentPage %> / <%= Books.totalPages %></p>
+                        <p>Progress: <%= percentage %>% Read </p>
+                        <progress value="<%= percentage %>" max="100"></progress><br>
+                        <form action="/book/<%= Books._id %>/progress?_method=PUT" method="POST" class="inline-form">
+                            <label for="currentPage">I am currently on page:</label>
+                            <input type="number" id="currentPage" name="currentPage" min="1"
+                                max="<%= Books.totalPages %>" value="<%= Books.currentPage %>">
+                            <span> / <%= Books.totalPages %></span>
+                            <button type="submit" class="small-update-button">Update Page</button>
+                        </form>
+                    <% } else { %>
+                        <p>Total pages not set. Edit book details to enable progress tracking.</p>
+                    <% } %>
+                </div>
+                <div class="section-card book-review-card">
+                    <h3>Book Review</h3>
+                    <% if (Books.status==='Finished' ) { %>
+                        <% if (Books.reviews && Books.reviews.length===0){ %>
+                            <a href="/book/<%= Books._id %>/review/new" class="cta-link-style">Write Your Final Review →</a>
+                        <%} else {
+                            const finalReview=Books.reviews[Books.reviews.length - 1]; %>
+                            <h4>Completed Review (<%= finalReview.rating %>/5)</h4>
+                            <p>"<%= finalReview.reviewText %>"</p>
+                            <div class="review-actions">
+                                <a href="/book/<%= Books._id %>/review/<%= finalReview._id%>/edit" class="cta-link-style">Edit Review </a>
+                                <form action="/book/<%= Books._id %>/review/<%= finalReview._id %>?_method=DELETE" method="POST" class="inline-form">
+                                    <button type="submit" class="delete-link-style">Delete Review</button>
+                                </form>
+                            </div>
+                        <%} %>
+                    <% } else { %>
+                        <p>Finish your book to unlock the final review feature!</p>
+                    <% } %>
+                </div>
+                <div class="section-card my-quotes-card">
+                    <h3>My Quotes (<%= Books.quotes ? Books.quotes.length : 0 %>)</h3>
+                    <a href="/book/<%= Books._id %>/quotes/new" class="cta-link-style">Add a New Quote</a>
+                    <% if (Books.quotes && Books.quotes.length> 0) { %>
+                        <ul class="quotes-list">
+                            <% Books.quotes.forEach(quote=> { %>
+                                <li>
+                                    <p class="quote-text">
+                                        <strong>Page <%= quote.pageNumber %>:</strong> "<%= quote.quote %>"
+                                    </p>
+                                    <p class="quote-meta">
+                                        *Feeling: <%= quote.emotion %>* | Saved on: <%= quote.createdDate.toLocaleDateString() %>
+                                    </p>
+                                    <% if (quote.personalNote) { %>
+                                        <p class="quote-note">Note: <%= quote.personalNote %></p>
+                                    <% } %>
+                                    <div class="quote-actions">
+                                        <a href="/book/<%= Books._id %>/quotes/<%= quote._id %>/edit" class="cta-link-style">Edit Quote</a>
+                                        <form action="/book/<%= Books._id %>/quotes/<%= quote._id %>?_method=DELETE" method="POST" class="inline-form">
+                                            <button type="submit" class="delete-link-style">Delete Quote</button>
+                                        </form>
+                                    </div>
+                                </li>
+                            <% }) %>
+                        </ul>
+                    <% } else { %>
+                        <p>You haven't saved any quotes for this book yet.</p>
+                    <% } %>
+                </div>
+            <%}%>
+        </div>
+    </div>
+    <% if (Books.owner._id.equals(user._id)){ %>
+        <hr>
+        <div class="book-actions-footer">
+            <a href="/book/<%= Books._id %>/edit" class="cta-button secondary-cta-btn">Edit Book Details</a>
+            <form action="/book/<%= Books._id %>?_method=DELETE" method="POST" class="delete-form">
+                <button type="submit" class="delete-button">Delete the book</button>
+            </form>
+        </div>
+    <%}%>
+</div>
 </body>
-
 </html>
