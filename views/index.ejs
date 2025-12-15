@@ -8,8 +8,9 @@
 </head>
 <body>
   <%- include('./partials/_navbar.ejs') %>
-  <div class="container">
-  <% if (user) { %>
+
+<div class="container">
+<% if (user) { %>
 <div class="welcomeUser">
 <h1>Welcome back <%= user.username %>!</h1>
 <p>
@@ -36,8 +37,12 @@ add your favorite quoutes, or check your reading goals.
 
 <%  } else { %>
 <div class="welcomeGuest">
-<h1>WaveShelf - Book Tracker </h1>
-<h2> Track your Reading Journey!</h2>
+  <div class="content">
+    <div class="header">
+<h1>WaveShelf</h1>
+<h2> Book Tracker Website </h2>
+<h3> Track your Reading Journey!</h3>
+<div class="libraryImg"> <img src="https://img.freepik.com/premium-photo/cozy-lofi-library-animestyle-peaceful-inviting_741402-15423.jpg?semt=ais_hybrid&w=740&q=80" alt="library"></div>
 <p>The best Website, where you can manage your reading lists, track your reading progress,
     easily save your favorite quotes and thoughts!
 </p>
@@ -46,11 +51,18 @@ add your favorite quoutes, or check your reading goals.
   Creat Your Account
 </a>
 <p>Already have an account? <a href="/auth/sign-in">Sign In</a></p>
-
+</div>
 </div>
 
 
 <% } %>
+<footer>
+    <p class="copyright">
+    <span class="symbol">&copy;</span> 2025 WaveShelf
+</p>
+
+</footer>
+
 </div>
 </body>
 </html>
