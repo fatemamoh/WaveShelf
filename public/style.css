@@ -1,104 +1,115 @@
-
 @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&display=swap');
 
 :root {
-  --color-darkest-blue: #134074;
-  --color-darker-blue: #13315C;
-  --color-primary: #0B2545;  /* Deep Navy - Good for Navbar, buttons, headers */
-  --color-secondary: #8DA9C4; /* Muted Mid-Blue - Good for accents, borders, hover */
-  --color-light-blue: #BECFD9; /* Very Pale Blue - Subtle background for sections */
-  --color-background-light: #E3EBEC; /* Near White/Light Gray - Main page background */
+    --color-darkest-blue: #134074;
+    --color-darker-blue: #13315C;
+    --color-primary: #0B2545;
+    /* Deep Navy - Good for Navbar, buttons, headers */
+    --color-secondary: #8DA9C4;
+    /* Muted Mid-Blue - Good for accents, borders, hover */
+    --color-light-blue: #BECFD9;
+    /* Very Pale Blue - Subtle background for sections */
+    --color-background-light: #E3EBEC;
+    /* Near White/Light Gray - Main page background */
 
-  /* TEXT COLORS */
-  --color-text-dark: var(--color-primary); /* Use the deep navy for main text */
-  --color-text-light: #FFFFFF; /* Pure White */
+    /* TEXT COLORS */
+    --color-text-dark: var(--color-primary);
+    /* Use the deep navy for main text */
+    --color-text-light: #FFFFFF;
+    /* Pure White */
 
-  /* FONTS */
-  --font-heading: 'DM Serif Text', sans-serif; /* Your bold title font */
-  --font-body: 'Georgia', sans-serif;    /* Placeholder: See recommendations below */
+    /* FONTS */
+    --font-heading: 'DM Serif Text', sans-serif;
+    /* Your bold title font */
+    --font-body: 'Georgia', sans-serif;
+    /* Placeholder: See recommendations below */
 
-  /* SPACING & SIZING */
-  --spacing-unit: 1rem;
-  --spacing-small: calc(var(--spacing-unit) * 0.5); /* 0.5rem */
-  --spacing-medium: var(--spacing-unit); /* 1rem */
-  --spacing-large: calc(var(--spacing-unit) * 2); /* 2rem */
-  --border-radius-base: 5px;
+    /* SPACING & SIZING */
+    --spacing-unit: 1rem;
+    --spacing-small: calc(var(--spacing-unit) * 0.5);
+    /* 0.5rem */
+    --spacing-medium: var(--spacing-unit);
+    /* 1rem */
+    --spacing-large: calc(var(--spacing-unit) * 2);
+    /* 2rem */
+    --border-radius-base: 5px;
 }
 
 * {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 body {
-  font-family: var(--font-body);
-  color: var(--color-text-dark);
-  background-color: var(--color-background-light);
-  line-height: 1.6; 
+    font-family: var(--font-body);
+    color: var(--color-text-dark);
+    background-color: var(--color-background-light);
+    line-height: 1.6;
 }
 
 h1 {
-  font-family: var(--font-heading);
-  color: var(--color-primary);
-  margin-bottom: var(--spacing-medium);
+    font-family: var(--font-heading);
+    color: var(--color-primary);
+    margin-bottom: var(--spacing-medium);
 }
 
-h2, h4 {
-  color: var(--color-primary);
-  margin-bottom: var(--spacing-small);
+h2,
+h4 {
+    color: var(--color-primary);
+    margin-bottom: var(--spacing-small);
 }
 
-.welcomeGuest{
- background-image: url(https://img.freepik.com/premium-photo/cozy-lofi-library-animestyle-peaceful-inviting_741402-15423.jpg?semt=ais_hybrid&w=740&q=80);
-background-position: center;
+.welcomeGuest {
+    background-image: url(https://img.freepik.com/premium-photo/cozy-lofi-library-animestyle-peaceful-inviting_741402-15423.jpg?semt=ais_hybrid&w=740&q=80);
+    background-position: center;
 }
 
 nav {
-  display: flex;
-  justify-content: flex-end; 
-  align-items: center;
-  background-color: var(--color-primary);
-  padding: var(--spacing-medium) var(--spacing-large);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    background-color: var(--color-primary);
+    padding: var(--spacing-medium) var(--spacing-large);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 footer {
-    position: fixed; 
     bottom: 0;
     left: 0;
     width: 100%;
-  background-color: var(--color-primary);
+    background-color: var(--color-primary);
     color: #fff;
     text-align: center;
-  padding: var(--spacing-medium) var(--spacing-large);
+    padding: var(--spacing-medium) var(--spacing-large);
 }
+
 .copyright .symbol {
     font-size: 1.2em;
-    color: var(--color-light-blue); 
+    color: var(--color-light-blue);
     margin-right: 5px;
 }
 
 nav a {
-  color: var(--color-text-light);
-  text-decoration: none;
-  padding: var(--spacing-small) var(--spacing-medium);
-  margin-left: var(--spacing-medium);
-  transition: background-color 0.3s;
-  border-radius: var(--border-radius-base);
+    color: var(--color-text-light);
+    text-decoration: none;
+    padding: var(--spacing-small) var(--spacing-medium);
+    margin-left: var(--spacing-medium);
+    transition: background-color 0.3s;
+    border-radius: var(--border-radius-base);
 }
 
-nav a:hover{
-background-color: var( --color-secondary)
-
+nav a:hover {
+    background-color: var(--color-secondary)
 }
 
 .header {
-  background-color: var( --color-background-light);
-  text-align: center;
-  padding: 10px;
+    background-color: var(--color-background-light);
+    text-align: center;
+    padding: 10px;
 }
 
 /* .libraryImg{
-    
+    position:absolute;
+height: 100px;
 } */
