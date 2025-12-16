@@ -1,32 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/style.css">
     <title>All Books</title>
 </head>
-
 <body>
     <%- include('../partials/_navbar.ejs') %>
-            <div class="container">
-        <h1>All Books </h1>
+    
+    <div class="container">
+        <h1>All Books</h1>
         <hr>
         <h4>Here you can find all the books you added</h4>
         
-        <div class="bookContainer">
-        <% Books.forEach(book => { %>
- 
-          <a href="/book/<%= book._id%>"> 
-         <div class="bookCard">
-         <img height="250px" src=<%=book.image %> alt="">
-        </div>
-         </a>
-
-        <% }) %>
-</div>
+        <div class="horizontal-list">
+        <% 
+        if (Array.isArray(Books) && Books.length) { 
+            Books.forEach(book => {
+                const total = book.totalPages || 0;
+                const current = book.currentPage || 0;
+                const percentage = (total > 0) ? Math.round((current / total) * 100) : 0;
+                const statusClass = (book.status || '').toLowerCase().replace(/ /g, '');
+        %>
+            <div class="bookCard book-grid-item">
+                <a href="/book/<%= book._id %>"> 
+                    <img src="<%= book.image %>" alt="<%= book.title %> cover">
+                    <p><strong><%= book.title %></strong></p>
+                    <p><%= book.author %></p>
+                    <p>Status: <strong><span class="status-<%= statusClass %>"><%= book.status %></span></strong></p>
+                    
+                    <% if (book.status === 'Reading') { %>
+                        <progress value="<%= percentage %>" max="100"></progress>
+                        <p style="font-size: 0.9rem;"><%= percentage %>% Read</p>
+                    <% } else if (book.status === 'Finished') { 
+                        const latestReview = (book.reviews && book.reviews.length) ? book.reviews[book.reviews.length - 1] : null;
+                    %>
+                        <p style="font-size: 0.9rem;">
+                            <%= latestReview ? `(Rated ${latestReview.rating}/5)` : 'Reviewed: No' %>
+                        </p>
+                    <% } %>
+                </a>
             </div>
+        <% }) } else { %>
+            <p style="width: 100%; text-align: center; padding: 20px;">
+                You have not added any books to your shelf yet. Start by adding a new book!
+            </p>
+        <% } %>
+        </div>
+    </div>
 </body>
-
 </html>

@@ -148,8 +148,8 @@ router.put('/:bookId', async (req, res) => {
 
 // quotes routes:
 
-// create quote:
-router.get('/:bookId/quotes', async (req, res) => {
+// create quote (GET route updated to /quotes/new)
+router.get('/:bookId/quotes/new', async (req, res) => {
     try {
         const Books = await Book.findById(req.params.bookId);
         const isOwner = Books.owner.equals(req.session.user._id);
@@ -253,8 +253,8 @@ router.delete('/:bookId/quotes/:quoteId', async (req, res) => {
 
 
 
-// create review
-router.get('/:bookId/review', async (req, res) => {
+// create review (GET route updated to /review/new)
+router.get('/:bookId/review/new', async (req, res) => {
     try {
         const Books = await Book.findById(req.params.bookId);
         const isOwner = Books.owner.equals(req.session.user._id);
@@ -342,9 +342,9 @@ router.delete('/:bookId/review/:reviewId', async (req, res) => {
         const isOwner = Books.owner.equals(req.session.user._id);
 
         if (isOwner) {
-            Books.reviews.id(req.params.reviewId).remove();
-            await Books.save();
-            res.redirect(`/book/${Books._id}`);
+        Books.reviews.id(req.params.reviewId).deleteOne();
+        await Books.save();
+        res.redirect(`/book/${Books._id}`);
         } else {
             res.send("You don't have permission to delete this review!");
         }

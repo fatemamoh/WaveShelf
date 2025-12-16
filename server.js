@@ -63,8 +63,8 @@ app.get('/', async (req, res) => {
 app.use('/auth', authCtrl);
 
 // ---------- PROTECTED ROUTES ----------
-app.use(isSignedIn);
-app.use('/book', bookCtrl); 
+app.use('/book', isSignedIn, bookCtrl);
+
 
 app.listen(port, () => {
   console.log(`The express app is ready on port ${port}!`);

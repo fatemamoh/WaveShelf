@@ -14,13 +14,13 @@
     <% const toReadBooks=Books.filter(book=> book.status === 'To Read'); %>
         <h2> To Read List (<%= toReadBooks.length %>) </h2>
         <div>
-            <% if (toReadBooks.length> 0 ) { %>
+            <% if (toReadBooks.length > 0 ) { %>
                 <ul class="horizontal-list">
                     <% toReadBooks.forEach((book)=> { %>
                     
                         <li>
                             <a href="/book/<%= book._id%>"> 
-                                <img src=<%=book.image %> alt="">
+                                <img src="<%= book.image %>" alt="">
                                 <p>Not Started Yet!</p>
                             </a>
                         </li>

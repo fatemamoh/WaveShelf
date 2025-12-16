@@ -39,7 +39,24 @@ h2,h4{
     max-width:900px;
     margin:0 auto;
     padding:var(--spacing-large) var(--spacing-medium);
+    text-align: center;
 }
+
+a:visited {
+    text-decoration: none;
+}
+
+a {
+    color: var(   --color-secondary); 
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+a:hover {
+    text-decoration: none;
+    color: var(--color-primary);
+}
+
 nav{
     display:flex;
     justify-content:flex-start;
@@ -222,18 +239,18 @@ footer{
 }
 .secondary-cta-btn{
     padding:12px 20px;
-    background-color:var(--color-darkest-blue); /* Standardized to primary color */
+    background-color:var(--color-darkest-blue);
     color:var(--color-text-light);
-    border:none; /* Standardized to solid button */
+    border:none;
     box-shadow:0 4px 15px rgba(19, 64, 116, 0.3);
     border-radius:50px;
     transition:background-color 0.3s ease, transform 0.2s ease, border-color 0.3s;
 }
 .secondary-cta-btn:hover{
-    background-color:var(--color-primary); /* Standardized hover color */
+    background-color:var(--color-primary);
     color:var(--color-text-light);
     transform:translateY(-2px);
-    border-color:var(--color-primary); /* Use primary color on hover */
+    border-color:var(--color-primary);
     box-shadow:0 4px 15px rgba(0, 0, 0, 0.1);
 }
 .listContainer{
@@ -323,6 +340,12 @@ footer{
     transform:translateY(-5px);
     box-shadow:0 8px 20px rgba(0, 0, 0, 0.15);
 }
+
+/* Remove underline from book card links */
+.horizontal-list a, .bookCard a {
+    text-decoration: none !important;
+}
+
 .horizontal-list li a{
     display:flex;
     flex-direction:column;
@@ -338,6 +361,13 @@ footer{
     border-radius:var(--border-radius-base);
     margin-bottom:var(--spacing-small);
 }
+
+.bookCard p strong {
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    color: var(--color-primary);
+}
+
 .horizontal-list li p{
     font-size:0.95rem;
     margin:0 0 var(--spacing-small) 0;
@@ -430,6 +460,7 @@ footer{
     cursor:pointer;
     transition:background-color 0.3s ease;
     margin-top:0 !important;
+    font-family: var(--font-heading);
 }
 .small-update-button:hover{background-color:var(--color-primary);}
 .quotes-list{
@@ -504,7 +535,7 @@ footer{
 }
 .delete-button{
     padding:12px 20px;
-    background-color:var(--color-darkest-blue); /* Standardized to primary color */
+    background-color:var(--color-darkest-blue);
     color:var(--color-text-light);
     border:none;
     border-radius:50px;
@@ -512,10 +543,11 @@ footer{
     cursor:pointer;
     transition:background-color 0.3s ease, transform 0.1s;
     margin-top:0 !important;
-    box-shadow:0 4px 15px rgba(19, 64, 116, 0.3); /* Added box shadow for consistency */
+    box-shadow:0 4px 15px rgba(19, 64, 116, 0.3);
+    font-family: var(--font-heading);
 }
 .delete-button:hover{
-    background-color:var(--color-primary); /* Standardized hover color */
+    background-color:var(--color-primary);
     transform:translateY(-2px);
 }
 @media (max-width: 768px){
@@ -533,7 +565,6 @@ footer{
     .feature-cards-container{flex-direction:column;}
     .feature-card{width:100%;min-width:initial;}
 }
-/* Consolidated form styling for most forms (not inline/delete) */
 form:not(.delete-form):not(.inline-form){
     max-width:600px;
     margin:var(--spacing-large) auto;
@@ -559,6 +590,7 @@ form select{
     padding:var(--spacing-small);
     border:1px solid var(--color-secondary);
     border-radius:var(--border-radius-base);
+    font-family:var(--font-body);
 }
 form input[type="text"],
 form input[type="password"],
@@ -582,15 +614,16 @@ form button[type="submit"]{
     background-color:var(--color-darkest-blue);
     color:var(--color-text-light);
     border:none;
-    border-radius:50px; /* Standardized to pill shape */
+    border-radius:50px;
     font-size:1.1rem;
     cursor:pointer;
     transition:background-color 0.3s ease, transform 0.1s;
-    box-shadow:0 4px 15px rgba(19, 64, 116, 0.3); /* Added box shadow for consistency */
+    box-shadow:0 4px 15px rgba(19, 64, 116, 0.3);
+    font-family:var(--font-heading);
 }
 form button[type="submit"]:hover{
     background-color:var(--color-primary);
-    transform:translateY(-2px); /* Standardized hover effect */
+    transform:translateY(-2px);
 }
 @media (max-width: 900px){
     .user-hero-section{
@@ -612,14 +645,25 @@ form button[type="submit"]:hover{
     }
     .book-actions-footer{flex-direction:column;}
 }
-
 .finished-list-centered {
 justify-content: center;
-scroll-snap-type: none; 
+scroll-snap-type: none;
     overflow-x: hidden;
     padding-bottom: 0;
 }
-
 .container > div:has(> p:only-child) {
     text-align: center;
+}
+
+.form-group-inline {
+    display: flex;
+    gap: var(--spacing-medium);
+    margin-bottom: var(--spacing-medium); 
+}
+.form-group-inline > div {
+    flex: 1 1 50%;
+}
+.form-group-inline label,
+.form-group-inline input {
+    width: 100%; 
 }
