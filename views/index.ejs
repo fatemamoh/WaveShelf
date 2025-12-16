@@ -48,7 +48,37 @@
         <span>Finished List</span>
     </a>
 </div>
-
+<h3>Your Complete Bookshelf</h3>
+<ul class="horizontal-list">
+    <% Books.forEach((book)=> { %>
+        <li class="bookCard">
+            <a href="/book/<%= book._id%>"> 
+                <img src="<%= book.image %>" alt="<%= book.title %> cover">
+                <p><strong><%= book.title %></strong></p>
+                <p><%= book.author %></p>
+                <p>Status: <strong><span class="status-<%= book.status.toLowerCase().replace(/ /g, '') %>"><%= book.status %></span></strong></p>
+                <% 
+                    const total = book.totalPages;
+                    const current = book.currentPage;
+                    const percentage = (total && total > 0)
+                        ? Math.round((current / total) * 100)
+                        : 0;
+                %>
+                <% if (book.status === 'Reading') { %>
+                    <progress value="<%= percentage %>" max="100"></progress>
+                    <p style="font-size: 0.9rem;"><%= percentage %>% Read</p>
+                <% } else if (book.status === 'Finished') { %>
+                    <% if (book.reviews && book.reviews.length > 0) {
+                        const latestReview = book.reviews[book.reviews.length - 1]; %>
+                        <p style="font-size: 0.9rem;">(Rated <%= latestReview.rating %>/5)</p>
+                    <% } else { %>
+                        <p style="font-size: 0.9rem;">Reviewed: No</p>
+                    <% } %>
+                <% } %>
+            </a>
+        </li>
+    <% }) %>
+</ul>
 
 
 <%  } else { %>

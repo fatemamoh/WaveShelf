@@ -19,6 +19,7 @@ const isSignedIn = require('./middleware/is-signed-in');
 // Controllers
 const authCtrl = require('./controllers/auth');
 const bookCtrl = require('./controllers/books.js');
+const Book = require('./models/book');
 
 // Set the port from environment variable or default to 3000
 const port = process.env.PORT ? process.env.PORT : '3000';
@@ -50,7 +51,13 @@ app.use(passUserToView);
 // ---------- PUBLIC ROUTES ----------
 
 app.get('/', async (req, res) => {
-  res.render('index.ejs');
+  let Books = [];
+  if (req.session.user) {
+    try {
+      Books = await Book.find({ owner: req.session.user._id });
+    } catch (error) {
+      console.error("Error fetching books for dashboard:", error);}}
+  res.render('index.ejs', { Books})
 });
 
 app.use('/auth', authCtrl);

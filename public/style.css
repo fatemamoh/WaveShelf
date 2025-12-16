@@ -186,83 +186,6 @@ footer{
     border-top:1px solid var(--color-light-blue);
     margin-top:40px;
 }
-@media (max-width: 768px){
-    .hero-section{
-        flex-direction:column;
-        padding:var(--spacing-large) var(--spacing-medium);
-        min-height:400px;
-    }
-    .hero-text{
-        max-width:100%;
-        text-align:center;
-    }
-    .hero-section h1{font-size:2.5rem;}
-    .hero-section h2{font-size:1.4rem;}
-    .feature-cards-container{flex-direction:column;}
-    .feature-card{width:100%;min-width:initial;}
-}
-.container form{
-    max-width:400px;
-    margin:var(--spacing-large) auto;
-    padding:var(--spacing-large);
-    background-color:white;
-    border-radius:var(--border-radius-base);
-    box-shadow:0 8px 16px rgba(0, 0, 0, 0.1);
-    display:flex;
-    flex-direction:column;
-}
-.container form h1{text-align:center;}
-.container form label{
-    font-weight:bold;
-    margin-top:var(--spacing-medium);
-    margin-bottom:var(--spacing-small);
-    color:var(--color-darker-blue);
-}
-.container form input[type="text"],
-.container form input[type="password"],
-.container form input[type="number"],
-.container form input[type="url"],
-.container form input[type="date"]{
-    padding:var(--spacing-small);
-    border:1px solid var(--color-light-blue);
-    border-radius:var(--border-radius-base);
-    font-size:1rem;
-    transition:border-color 0.3s, box-shadow 0.3s;
-}
-.container form textarea,
-.container form select{
-    width:100%;
-    padding:var(--spacing-small);
-    border:1px solid var(--color-light-blue);
-    border-radius:var(--border-radius-base);
-    font-size:1rem;
-    font-family:inherit;
-    margin-bottom:var(--spacing-medium);
-    color:var(--color-text-dark);
-}
-.container form textarea{resize:vertical;}
-.container form input:focus,
-.container form textarea:focus,
-.container form select:focus{
-    border-color:var(--color-secondary);
-    box-shadow:0 0 5px rgba(141, 169, 196, 0.5);
-    outline:none;
-}
-.container form button[type="submit"]{
-    margin-top:var(--spacing-large);
-    padding:12px 20px;
-    background-color:var(--color-darkest-blue);
-    color:var(--color-text-light);
-    border:none;
-    border-radius:var(--border-radius-base);
-    font-size:1.1rem;
-    cursor:pointer;
-    transition:background-color 0.3s ease, transform 0.1s;
-}
-.container form button[type="submit"]:hover{
-    background-color:var(--color-primary);
-    transform:translateY(-1px);
-}
 .user-hero-section{
     display:flex;
     align-items:center;
@@ -298,17 +221,19 @@ footer{
     margin-top:var(--spacing-large);
 }
 .secondary-cta-btn{
-    background-color:transparent;
+    padding:12px 20px;
+    background-color:var(--color-darkest-blue); /* Standardized to primary color */
     color:var(--color-text-light);
-    border:2px solid var(--color-text-light);
-    box-shadow:none;
+    border:none; /* Standardized to solid button */
+    box-shadow:0 4px 15px rgba(19, 64, 116, 0.3);
+    border-radius:50px;
     transition:background-color 0.3s ease, transform 0.2s ease, border-color 0.3s;
 }
 .secondary-cta-btn:hover{
-    background-color:rgba(255, 255, 255, 0.1);
+    background-color:var(--color-primary); /* Standardized hover color */
     color:var(--color-text-light);
     transform:translateY(-2px);
-    border-color:var(--color-text-light);
+    border-color:var(--color-primary); /* Use primary color on hover */
     box-shadow:0 4px 15px rgba(0, 0, 0, 0.1);
 }
 .listContainer{
@@ -364,18 +289,6 @@ footer{
     width:65px;
     height:auto;
     margin-bottom:5px;
-}
-@media (max-width: 900px){
-    .user-hero-section{
-        min-height:200px;
-        text-align:center;
-        justify-content:center;
-    }
-    .user-hero-text{
-        max-width:100%;
-        text-align:center;
-    }
-    .action-buttons{justify-content:center;}
 }
 .bookContainer,
 .horizontal-list{
@@ -591,7 +504,7 @@ footer{
 }
 .delete-button{
     padding:12px 20px;
-    background-color:var(--color-primary);
+    background-color:var(--color-darkest-blue); /* Standardized to primary color */
     color:var(--color-text-light);
     border:none;
     border-radius:50px;
@@ -599,40 +512,42 @@ footer{
     cursor:pointer;
     transition:background-color 0.3s ease, transform 0.1s;
     margin-top:0 !important;
+    box-shadow:0 4px 15px rgba(19, 64, 116, 0.3); /* Added box shadow for consistency */
 }
 .delete-button:hover{
-    background-color:var(--color-darkest-blue);
+    background-color:var(--color-primary); /* Standardized hover color */
     transform:translateY(-2px);
 }
-.secondary-cta-btn{
-    background-color:var(--color-primary);
-    color:var(--color-text-light);
-    border:2px solid var(--color-primary);
-    box-shadow:0 4px 15px rgba(19, 64, 116, 0.3);
-    padding:12px 20px;
-    border-radius:50px;
-}
-.secondary-cta-btn:hover{
-    background-color:var(--color-darkest-blue);
-    transform:translateY(-2px);
-}
-@media (max-width: 900px){
-    .show-page-grid{grid-template-columns:1fr;}
-    .book-details-sidebar{text-align:center;}
-    .book-details-sidebar img{
-        max-width:250px;
-        display:block;
-        margin:0 auto var(--spacing-medium);
+@media (max-width: 768px){
+    .hero-section{
+        flex-direction:column;
+        padding:var(--spacing-large) var(--spacing-medium);
+        min-height:400px;
     }
-    .book-actions-footer{flex-direction:column;}
+    .hero-text{
+        max-width:100%;
+        text-align:center;
+    }
+    .hero-section h1{font-size:2.5rem;}
+    .hero-section h2{font-size:1.4rem;}
+    .feature-cards-container{flex-direction:column;}
+    .feature-card{width:100%;min-width:initial;}
 }
+/* Consolidated form styling for most forms (not inline/delete) */
 form:not(.delete-form):not(.inline-form){
     max-width:600px;
     margin:var(--spacing-large) auto;
     padding:var(--spacing-large);
-    background-color:white; /* FIXED: Changed to white for a lighter background */
+    background-color:white;
     border-radius:var(--border-radius-base);
     box-shadow:0 4px 15px rgba(0, 0, 0, 0.1);
+}
+form:not(.delete-form):not(.inline-form) h1{text-align:center;}
+form:not(.delete-form):not(.inline-form) label{
+    font-weight:bold;
+    margin-top:var(--spacing-medium);
+    margin-bottom:var(--spacing-small);
+    color:var(--color-darker-blue);
 }
 form label,
 form input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]):not([type="button"]),
@@ -645,26 +560,66 @@ form select{
     border:1px solid var(--color-secondary);
     border-radius:var(--border-radius-base);
 }
-.cta-button,
-.delete-button,
-.delete-link-style{
-    padding:10px 18px;
+form input[type="text"],
+form input[type="password"],
+form input[type="number"],
+form input[type="url"],
+form input[type="date"]{
     font-size:1rem;
-    text-decoration:none;
-    display:inline-block;
-    text-align:center;
+    transition:border-color 0.3s, box-shadow 0.3s;
 }
-.delete-button{
-    background-color:var(--color-primary);
+form textarea{resize:vertical;}
+form input:focus,
+form textarea:focus,
+form select:focus{
+    border-color:var(--color-secondary);
+    box-shadow:0 0 5px rgba(141, 169, 196, 0.5);
+    outline:none;
+}
+form button[type="submit"]{
+    margin-top:var(--spacing-large);
+    padding:12px 20px;
+    background-color:var(--color-darkest-blue);
     color:var(--color-text-light);
     border:none;
-    border-radius:50px;
+    border-radius:50px; /* Standardized to pill shape */
+    font-size:1.1rem;
     cursor:pointer;
     transition:background-color 0.3s ease, transform 0.1s;
-    margin-top:0 !important;
+    box-shadow:0 4px 15px rgba(19, 64, 116, 0.3); /* Added box shadow for consistency */
 }
-.secondary-cta-btn{
+form button[type="submit"]:hover{
     background-color:var(--color-primary);
-    color:var(--color-text-light);
-    border:2px solid var(--color-primary);
+    transform:translateY(-2px); /* Standardized hover effect */
+}
+@media (max-width: 900px){
+    .user-hero-section{
+        min-height:200px;
+        text-align:center;
+        justify-content:center;
+    }
+    .user-hero-text{
+        max-width:100%;
+        text-align:center;
+    }
+    .action-buttons{justify-content:center;}
+    .show-page-grid{grid-template-columns:1fr;}
+    .book-details-sidebar{text-align:center;}
+    .book-details-sidebar img{
+        max-width:250px;
+        display:block;
+        margin:0 auto var(--spacing-medium);
+    }
+    .book-actions-footer{flex-direction:column;}
+}
+
+.finished-list-centered {
+justify-content: center;
+scroll-snap-type: none; 
+    overflow-x: hidden;
+    padding-bottom: 0;
+}
+
+.container > div:has(> p:only-child) {
+    text-align: center;
 }

@@ -8,16 +8,14 @@
 </head>
 <body>
         <%- include('../partials/_navbar.ejs') %>
-
-      <% 
+    <div class="container">  <% 
         const finishedBooks = Books.filter(book => book.status === 'Finished');
       %>
 
           <h2> Finished List (<%= finishedBooks.length %>) </h2>
          <div>
             <% if (finishedBooks.length > 0 ) { %>
-            <ul class="horizontal-list">
-                <% finishedBooks.forEach((book)=> { %>
+            <ul class="horizontal-list finished-list-centered"> <% finishedBooks.forEach((book)=> { %>
                     <li>
                         <a href="/book/<%= book._id%>"> 
                             <img src=<%=book.image %> alt="">
