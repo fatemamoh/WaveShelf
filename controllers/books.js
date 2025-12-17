@@ -111,40 +111,23 @@ router.get('/:bookId/edit', async (req, res) => {
 router.delete('/:bookId', async (req, res) => {
     try {
         const Books = await Book.findById(req.params.bookId);
-        const isOwner = Books.owner.equals(req.session.user._id);
-
-        if (isOwner) {
-            await Books.deleteOne();
+        if (Books.owner.equals(req.session.user._id)) {
+            await Book.findByIdAndDelete(req.params.bookId);
             res.redirect('/book');
-        } else {
-            res.send("You don't have permission to delete this book!");
         }
-
-    } catch (error) {
-        console.error(error);
-        res.redirect('/book');
-    }
+    } catch (error) { res.redirect('/book'); }
 });
 
 // update:
 router.put('/:bookId', async (req, res) => {
     try {
         const Books = await Book.findById(req.params.bookId);
-        const isOwner = Books.owner.equals(req.session.user._id);
-
-        if (isOwner) {
-            await Books.updateOne(req.body);
-            res.redirect(`/book/${Books._id}`)
-        } else {
-            res.send("You don't have permission to update this book!");
+        if (Books.owner.equals(req.session.user._id)) {
+            await Book.findByIdAndUpdate(req.params.bookId, req.body);
+            res.redirect(`/book/${req.params.bookId}`);
         }
-
-    } catch (error) {
-        console.error(error);
-        res.redirect('/book');
-    }
+    } catch (error) { res.redirect('/book'); }
 });
-
 
 // quotes routes:
 
@@ -233,13 +216,13 @@ router.put('/:bookId/quotes/:quoteId', async (req, res) => {
 
 
 // delete quote:
+// DELETE /book/:bookId/quotes/:quoteId
 router.delete('/:bookId/quotes/:quoteId', async (req, res) => {
     try {
         const Books = await Book.findById(req.params.bookId);
-        const isOwner = Books.owner.equals(req.session.user._id);
-
+        const isOwner= Books.owner.equals(req.session.user._id)
         if (isOwner) {
-            Books.quotes.id(req.params.quoteId).remove();
+            Books.quotes.id(req.params.quoteId).deleteOne(); 
             await Books.save();
             res.redirect(`/book/${Books._id}`);
         } else {
@@ -249,7 +232,7 @@ router.delete('/:bookId/quotes/:quoteId', async (req, res) => {
         console.error(error);
         res.redirect(`/book/${req.params.bookId}`);
     }
-})
+});
 
 
 
@@ -356,33 +339,34 @@ router.delete('/:bookId/review/:reviewId', async (req, res) => {
 })
 
 // progress bar:
-
 router.put('/:bookId/progress', async (req, res) => {
     try {
         const Books = await Book.findById(req.params.bookId);
         const isOwner = Books.owner.equals(req.session.user._id);
-
         if (isOwner) {
             let newPage = parseInt(req.body.currentPage);
-            if (isNaN(newPage) || newPage < 1) {
-                newPage = Books.currentPage;
+            
+            if (isNaN(newPage) || newPage < 0) {
+                newPage = 0;
             }
-
             if (newPage > Books.totalPages) {
                 newPage = Books.totalPages;
             }
-
-            if (newPage > 0 && Books.status === 'To Read') {
+            
+            if (newPage === Books.totalPages && Books.status !== 'Finished') {
+                Books.status = 'Finished';
+                Books.finishDate = new Date(); 
+            } 
+            else if (newPage < Books.totalPages && Books.status === 'Finished') {
+                Books.status = 'Reading';
+            }
+            else if (newPage > 0 && newPage < Books.totalPages && Books.status === 'To Read') {
                 Books.status = 'Reading';
             }
 
-            if (newPage === Books.totalPages && Books.status !== 'Finished') {
-                Books.status = 'Finished';
-            }
-
             Books.currentPage = newPage;
-            await Books.save();
-            res.redirect(`/book/${Books._id}`)
+            await Books.save(); 
+            res.redirect(`/book/${Books._id}`);
 
         } else {
             res.send("You don't have permission to update this book's progress.");

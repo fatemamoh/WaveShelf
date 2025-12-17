@@ -20,7 +20,7 @@
                 <% readingBooks.forEach((book)=> { %>
                     <li>
                     <a href="/book/<%= book._id%>"> 
-                        <img src="<%= book.image %>" alt=""> 
+                        <img src="<%= book.image %>" alt="<%= book.title %> cover"> 
                         <% 
 
                         const total = book.totalPages

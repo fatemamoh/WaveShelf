@@ -74,8 +74,21 @@ nav{
 .app-title-link{
     font-size:1.2rem;
     font-weight:bold;
+    gap: 10px;
     margin-left:0 !important;
     padding:var(--spacing-small) var(--spacing-medium);
+    display: inline-flex;    
+    align-items: center;     
+    gap: 12px;              
+    text-decoration: none;   
+    vertical-align: middle;  
+
+}
+
+.app-title-link img {
+    height: 45px;
+    width: auto;
+    display: block;
 }
 nav a{
     color:var(--color-text-light);
@@ -341,7 +354,6 @@ footer{
     box-shadow:0 8px 20px rgba(0, 0, 0, 0.15);
 }
 
-/* Remove underline from book card links */
 .horizontal-list a, .bookCard a {
     text-decoration: none !important;
 }

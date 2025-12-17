@@ -1,74 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/style.css">
-    <title>Edit <%= Books.title %>
-    </title>
+    <title>Edit <%= Books.title %></title>
 </head>
 
 <body>
     <%- include('../partials/_navbar.ejs') %>
-        <div class="container">
-            <h1>Edit a Book!</h1>
-            <a href="/book/<%= Books._id %>">← Back to Book Details</a>
-            <form action="/book/<%= Books._id %>?_method=PUT" method="POST">
-                <label for="title">Title:</label>
-                <input type="text" id="title" name="title" required value="<%= Books.title %>">
+    <div class="container">
+        <h1>Edit Book Details</h1>
+        <a href="/book/<%= Books._id %>">← Cancel and Go Back</a>
+        
+        <form action="/book/<%= Books._id %>?_method=PUT" method="POST" class="form-styling">
+            <label for="title">Title:</label>
+            <input type="text" id="title" name="title" required value="<%= Books.title %>">
 
-                <label for="author">Author:</label>
-                <input type="text" id="author" name="author" required value="<%= Books.author %>">
+            <label for="author">Author:</label>
+            <input type="text" id="author" name="author" required value="<%= Books.author %>">
 
-                <label for="genre">Genre:</label>
-                <select id="genre" name="genre" required>
-                    <% const genres=['Fiction', 'Non-Fiction' , 'Fantasy' , 'Mystery' , 'Sci-Fi' , 'Romance' , 'Horror'
-                        , 'Biography' , 'History' ]; %>
-                        <% genres.forEach(function(g) { %>
-                            <option value="<%= g %>" <%=Books.genre===g ? 'selected' : '' %>><%= g %>
-                            </option>
-                            <% }); %>
-                </select>
+            <label for="genre">Genre:</label>
+            <select id="genre" name="genre" required>
+                <% const genres=['Fiction', 'Non-Fiction', 'Fantasy', 'Mystery', 'Sci-Fi', 'Romance', 'Horror', 'Biography', 'History']; %>
+                <% genres.forEach(function(g) { %>
+                    <option value="<%= g %>" <%= Books.genre === g ? 'selected' : '' %>><%= g %></option>
+                <% }); %>
+            </select>
 
-                <label for="totalPages">Total Pages:</label>
-                <input type="number" name="totalPages" id="totalPages" required value="<%= Books.totalPages %>">
+            <label for="mood">Mood:</label>
+            <select id="mood" name="mood" required>
+                <% const moods=['Happy', 'Sad', 'Thrilled', 'Anxious', 'Relaxed', 'Heartbroken', 'Inspired', 'Bored']; %>
+                <% moods.forEach(function(m) { %>
+                    <option value="<%= m %>" <%= Books.mood === m ? 'selected' : '' %>><%= m %></option>
+                <% }); %>
+            </select>
 
-                <label for="currentPage">Current Pages:</label>
-                <input type="number" name="currentPage" id="currentPage" min="1" value="<%= Books.currentPage %>">
+            <label for="status">Status:</label>
+            <select id="status" name="status" required>
+                <option value="To Read" <%= Books.status === "To Read" ? "selected" : "" %>>To Read</option>
+                <option value="Reading" <%= Books.status === "Reading" ? "selected" : "" %>>Reading</option>
+                <option value="Finished" <%= Books.status === "Finished" ? "selected" : "" %>>Finished</option>
+            </select>
 
-                <label for="mood">Mood:</label>
-                <select id="mood" name="mood">
-                    <option value="Thrilled" <%=Books.mood==="Thrilled" ? "selected" : "" %>>Thrilled</option>
-                    <option value="Happy" <%=Books.mood==="Happy" ? "selected" : "" %>>Happy</option>
-                    <option value="Excited" <%=Books.mood==="Excited" ? "selected" : "" %>>Excited</option>
-                    <option value="Nostalgic" <%=Books.mood==="Nostalgic" ? "selected" : "" %>>Nostalgic</option>
-                    <option value="Heartbroken" <%=Books.mood==="Heartbroken" ? "selected" : "" %>>Heartbroken</option>
-                    <option value="Inspired" <%=Books.mood==="Inspired" ? "selected" : "" %>>Inspired</option>
-                    <option value="Bored" <%=Books.mood==="Bored" ? "selected" : "" %>>Bored</option>
-                </select>
+            <label for="totalPages">Total Pages:</label>
+            <input type="number" id="totalPages" name="totalPages" required value="<%= Books.totalPages %>">
 
-                <label for="status">Status:</label>
-                <select id="status" name="status" required>
-                    <option value="To Read" <%=Books.status==="To Read" ? "selected" : "" %>>To Read</option>
-                    <option value="Reading" <%=Books.status==="Reading" ? "selected" : "" %>>Reading</option>
-                    <option value="Finished" <%=Books.status==="Finished" ? "selected" : "" %>>Finished</option>
-                </select>
+            <label for="startDate">Start Date:</label>
+            <input type="date" id="startDate" name="startDate" required value="<%= Books.startDate.toISOString().slice(0, 10) %>">
 
-                <label for="startDate">Start Date:</label>
-                <input type="date" id="startDate" name="startDate" required
-                    value="<%= Books.startDate.toISOString().slice(0, 10) %>">
+            <label for="finishDate">Finish Date:</label>
+            <input type="date" name="finishDate" id="finishDate" value="<%= Books.finishDate ? Books.finishDate.toISOString().slice(0, 10) : '' %>">
 
-                <label for="finishDate">Finish Date: </label>
-                <input type="date" name="finishDate" id="finishDate"
-                    value="<%= Books.finishDate ? Books.finishDate.toISOString().split('T')[0] : '' %>">
+            <label for="image">Cover Image URL:</label>
+            <input type="url" id="image" name="image" required value="<%= Books.image %>">
 
-                <input type="url" id="image" name="image" placeholder="Enter the book cover here" required
-                    value="<%= Books.image %>">
-
-                <button type="submit"> Update Book</button>
-            </form>
-        </div>
+            <button type="submit" class="cta-button">Update Book</button>
+        </form>
+    </div>
 </body>
-
 </html>

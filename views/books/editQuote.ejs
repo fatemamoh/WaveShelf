@@ -4,32 +4,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/style.css">
-    <title>Edit Quote from <%= Books.title %></title>
+    <title>Edit Quote - <%= Books.title %></title>
 </head>
 <body>
 <%- include('../partials/_navbar.ejs') %>
 <div class="container">
-<h1>Edit Quote from <%= Books.title %></h1>
-<a href="/book/<%= Books._id %>">← Back to Book Details</a>
-<form action="/book/<%= Books._id %>/quotes/<%= quote._id %>?_method=PUT" method="POST">
-    <label for="quote">Quote Text:</label>
-    <textarea id="quote" name="quote" rows="5" required><%= quote.quote %></textarea><br>
-    <label for="pageNumber">Page Number:</label>
-    <input type="number" id="pageNumber" name="pageNumber" required min="1" value="<%= quote.pageNumber %>"><br>
-    <label for="emotion">Emotion/Feeling:</label>
-    <select id="emotion" name="emotion">
-        <option value="Amusement" <%= quote.emotion === "Amusement" ? "selected" : "" %>>Amusement </option>
-        <option value="Anger" <%= quote.emotion === "Anger" ? "selected" : "" %>>Anger</option>
-        <option value="Grief" <%= quote.emotion === "Grief" ? "selected" : "" %>>Grief</option>
-        <option value="Calm" <%= quote.emotion === "Calm" ? "selected" : "" %>>Calm</option>
-        <option value="Fear" <%= quote.emotion === "Fear" ? "selected" : "" %>>Fear</option>
-        <option value="thrill" <%= quote.emotion === "thrill" ? "selected" : "" %>>Thrill</option>
-        <option value="nostalgic" <%= quote.emotion === "nostalgic" ? "selected" : "" %>>Nostalgic</option>
-    </select><br>
-    <label for="personalNote">Personal Note (Optional):</label>
-    <textarea id="personalNote" name="personalNote"><%= quote.personalNote %></textarea><br>
-    <button type="submit">Update Quote</button>
-</form>
+    <h1>Edit Quote</h1>
+    <a href="/book/<%= Books._id %>">← Back to Details</a>
+
+    <form action="/book/<%= Books._id %>/quotes/<%= quote._id %>?_method=PUT" method="POST" class="form-styling">
+        <label for="quote">Quote Text:</label>
+        <textarea id="quote" name="quote" rows="5" required><%= quote.quote %></textarea>
+
+        <label for="pageNumber">Page Number:</label>
+        <input type="number" id="pageNumber" name="pageNumber" value="<%= quote.pageNumber %>" required>
+
+        <label for="emotion">Emotion:</label>
+        <select id="emotion" name="emotion">
+            <% const emotions = ['Amusement', 'Anger', 'Grief', 'Calm', 'Fear', 'Thrill', 'Nostalgic']; %>
+            <% emotions.forEach(e => { %>
+                <option value="<%= e %>" <%= quote.emotion === e ? 'selected' : '' %>><%= e %></option>
+            <% }) %>
+        </select>
+
+        <label for="personalNote">Personal Note:</label>
+        <textarea id="personalNote" name="personalNote" rows="3"><%= quote.personalNote %></textarea>
+
+        <button type="submit" class="cta-button">Update Quote</button>
+    </form>
 </div>
 </body>
 </html>
