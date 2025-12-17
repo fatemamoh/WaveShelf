@@ -54,7 +54,7 @@ a {
 
 a:hover {
     text-decoration: none;
-    color: var(--color-primary);
+    /* color: var(--color-primary); */
 }
 
 nav{
@@ -456,6 +456,7 @@ footer{
     box-shadow:none;
     background-color:transparent;
     flex-direction:row;
+    text-decoration: none;
 }
 .inline-form input[type="number"]{
     width:80px;
@@ -503,7 +504,7 @@ footer{
 }
 .cta-link-style{
     color:var(--color-darkest-blue);
-    text-decoration:underline;
+    text-decoration:none;
     font-weight:bold;
     display:inline-block;
     margin-top:var(--spacing-small);
@@ -527,6 +528,7 @@ footer{
     text-decoration:underline;
     padding:0;
     transition:color 0.3s;
+    text-decoration: none;
 }
 .delete-link-style:hover{color:var(--color-darkest-blue);}
 .book-actions-footer{
