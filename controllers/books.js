@@ -14,7 +14,7 @@ router.get('/', async (req, res) => {
         const Books = await Book.find({ owner: req.session.user._id }).populate('owner');
         res.render('books/index.ejs', { Books })
     }
-    
+
     catch (error) {
         console.error(error)
         res.redirect('/')
@@ -111,7 +111,8 @@ router.get('/:bookId/edit', async (req, res) => {
 router.delete('/:bookId', async (req, res) => {
     try {
         const Books = await Book.findById(req.params.bookId);
-        if (Books.owner.equals(req.session.user._id)) {
+        const isOwner = Books.owner.equals(req.session.user._id)
+        if (isOwner) {
             await Book.findByIdAndDelete(req.params.bookId);
             res.redirect('/book');
         }
@@ -122,7 +123,8 @@ router.delete('/:bookId', async (req, res) => {
 router.put('/:bookId', async (req, res) => {
     try {
         const Books = await Book.findById(req.params.bookId);
-        if (Books.owner.equals(req.session.user._id)) {
+        const isOwner = Books.owner.equals(req.session.user._id)
+        if (isOwner) {
             await Book.findByIdAndUpdate(req.params.bookId, req.body);
             res.redirect(`/book/${req.params.bookId}`);
         }
@@ -195,7 +197,6 @@ router.put('/:bookId/quotes/:quoteId', async (req, res) => {
         if (isOwner) {
             const quoteToUpdate = Books.quotes.id(req.params.quoteId);
             if (quoteToUpdate) {
-                // Update fields
                 quoteToUpdate.quote = req.body.quote;
                 quoteToUpdate.pageNumber = req.body.pageNumber;
                 quoteToUpdate.emotion = req.body.emotion;
@@ -217,12 +218,13 @@ router.put('/:bookId/quotes/:quoteId', async (req, res) => {
 
 // delete quote:
 // DELETE /book/:bookId/quotes/:quoteId
+
 router.delete('/:bookId/quotes/:quoteId', async (req, res) => {
     try {
         const Books = await Book.findById(req.params.bookId);
-        const isOwner= Books.owner.equals(req.session.user._id)
+        const isOwner = Books.owner.equals(req.session.user._id)
         if (isOwner) {
-            Books.quotes.id(req.params.quoteId).deleteOne(); 
+            Books.quotes.id(req.params.quoteId).deleteOne();
             await Books.save();
             res.redirect(`/book/${Books._id}`);
         } else {
@@ -259,8 +261,8 @@ router.post('/:bookId/review', async (req, res) => {
         const isOwner = Books.owner.equals(req.session.user._id);
 
         if (isOwner) {
-            Books.reviews.push(req.body); 
-            Books.status = 'Finished'; 
+            Books.reviews.push(req.body);
+            Books.status = 'Finished';
             Books.finishDate = new Date();
             await Books.save();
             res.redirect(`/book/${Books._id}`);
@@ -306,7 +308,7 @@ router.put('/:bookId/review/:reviewId', async (req, res) => {
                 await Books.save();
                 res.redirect(`/book/${Books._id}`);
             } else {
-                 res.send("Review not found!");
+                res.send("Review not found!");
             }
         } else {
             res.send("You don't have permission to edit this review!");
@@ -325,9 +327,9 @@ router.delete('/:bookId/review/:reviewId', async (req, res) => {
         const isOwner = Books.owner.equals(req.session.user._id);
 
         if (isOwner) {
-        Books.reviews.id(req.params.reviewId).deleteOne();
-        await Books.save();
-        res.redirect(`/book/${Books._id}`);
+            Books.reviews.id(req.params.reviewId).deleteOne();
+            await Books.save();
+            res.redirect(`/book/${Books._id}`);
         } else {
             res.send("You don't have permission to delete this review!");
         }
@@ -345,18 +347,14 @@ router.put('/:bookId/progress', async (req, res) => {
         const isOwner = Books.owner.equals(req.session.user._id);
         if (isOwner) {
             let newPage = parseInt(req.body.currentPage);
-            
             if (isNaN(newPage) || newPage < 0) {
-                newPage = 0;
-            }
+                newPage = 0;}
             if (newPage > Books.totalPages) {
                 newPage = Books.totalPages;
             }
-            
             if (newPage === Books.totalPages && Books.status !== 'Finished') {
                 Books.status = 'Finished';
-                Books.finishDate = new Date(); 
-            } 
+                Books.finishDate = new Date();}
             else if (newPage < Books.totalPages && Books.status === 'Finished') {
                 Books.status = 'Reading';
             }
@@ -365,7 +363,7 @@ router.put('/:bookId/progress', async (req, res) => {
             }
 
             Books.currentPage = newPage;
-            await Books.save(); 
+            await Books.save();
             res.redirect(`/book/${Books._id}`);
 
         } else {

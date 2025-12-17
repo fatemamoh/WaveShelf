@@ -1,14 +1,14 @@
 const mongoose = require('mongoose');
 
 const reviewSchema = new mongoose.Schema({
-    reviewText:{
-        type:String,
+    reviewText: {
+        type: String,
         required: true,
-    }, 
+    },
     rating: {
-        type:Number,
+        type: Number,
         min: 1,
-        max:5,
+        max: 5,
         required: true,
 
     },
@@ -60,21 +60,21 @@ const bookSchema = new mongoose.Schema({
         type: String,
         required: true,
         enum: [
-            'Fiction', 
-            'Non-Fiction', 
-            'Fantasy', 
-            'Mystery', 
-            'Sci-Fi', 
-            'Romance', 
-            'Horror', 
-            'Biography', 
+            'Fiction',
+            'Non-Fiction',
+            'Fantasy',
+            'Mystery',
+            'Sci-Fi',
+            'Romance',
+            'Horror',
+            'Biography',
             'History'
         ],
         default: 'Fiction'
     },
 
-    image:{
-        type:String,
+    image: {
+        type: String,
         required: true,
 
     },
@@ -97,12 +97,12 @@ const bookSchema = new mongoose.Schema({
     },
 
     quotes: [quoteSchema],
-    
-    reviews: [reviewSchema], 
 
-    totalPages:{
+    reviews: [reviewSchema],
+
+    totalPages: {
         type: Number,
-        min:1,
+        min: 1,
         required: true,
     },
 
