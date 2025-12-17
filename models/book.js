@@ -30,7 +30,7 @@ const quoteSchema = new mongoose.Schema({
         type: String,
         required: true,
         enum: [
-            'Anger', 'Amusement', 'Grief', 'Calm', 'Fear', 'thrill', 'nostalgic',
+            'Anger', 'Amusement', 'Grief', 'Calm', 'Fear', 'Thrill', 'Nostalgic',
         ],
         default: 'Amusement',
     },
@@ -58,7 +58,19 @@ const bookSchema = new mongoose.Schema({
 
     genre: {
         type: String,
-        required: true
+        required: true,
+        enum: [
+            'Fiction', 
+            'Non-Fiction', 
+            'Fantasy', 
+            'Mystery', 
+            'Sci-Fi', 
+            'Romance', 
+            'Horror', 
+            'Biography', 
+            'History'
+        ],
+        default: 'Fiction'
     },
 
     image:{
@@ -70,7 +82,7 @@ const bookSchema = new mongoose.Schema({
     mood: {
         type: String,
         required: true,
-        enum: ['thrilled', 'happy', 'excited', 'nostalgic', 'heartbroken', 'inspired', 'bored'],
+        enum: ['Thrilled', 'Happy', 'Excited', 'Nostalgic', 'Heartbroken', 'Inspired', 'Bored'],
         default: 'happy'
     },
 
@@ -86,7 +98,6 @@ const bookSchema = new mongoose.Schema({
 
     quotes: [quoteSchema],
     
-    // FIXED: Changed to an array of reviews to match controller/view logic
     reviews: [reviewSchema], 
 
     totalPages:{
