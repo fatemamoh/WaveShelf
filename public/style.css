@@ -268,7 +268,7 @@ footer{
 }
 .listContainer{
     display:flex;
-    justify-content:flex-start;
+    justify-content:center;
     flex-wrap:nowrap;
     gap:var(--spacing-large);
     margin-top:var(--spacing-medium);
