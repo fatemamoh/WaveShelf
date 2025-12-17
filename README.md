@@ -25,6 +25,7 @@ Let’s face it: we’ve all finished a chapter and thought, *"I need to remembe
 ## 🚀 Getting Started
 - **Live Demo:** [Deployed App Link]()
 - **Planning:** ![ERD Materials](/assets/erd.png)
+- **MockUp:** [Mockup Material](/assets/mokeup.jpeg)
 
 ---
 
