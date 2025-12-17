@@ -16,9 +16,7 @@ Let’s face it: we’ve all finished a chapter and thought, *"I need to remembe
 > I built this app because books aren't just paper and ink, they're experiences. WaveShelf is here to make sure none of those experiences get lost in the sea of a busy life! 🌊📖
 
 ## 📸 Screenshots
-**Logo:** 
-
-![Logo](/assets/logo.png)
+**Logo:** [Logo of Website](/assets/logo.png)
 
 **Landing Page:** ![Landing Page](/assets/landingPage.png) 
 **Key Features:** ![Key Features](/assets/keyFeature.png) 
