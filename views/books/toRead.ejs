@@ -15,14 +15,15 @@
         <h2> To Read List (<%= toReadBooks.length %>) </h2>
         <div>
             <% if (toReadBooks.length > 0 ) { %>
-                <ul class="horizontal-list">
+                <ul class="book-grid">
                     <% toReadBooks.forEach((book)=> { %>
-                    
                         <li>
+                            <div class="bookCard book-grid-item">
                             <a href="/book/<%= book._id%>"> 
                                 <img src="<%= book.image %>" alt="<%= book.title %> cover">
                                 <p>Not Started Yet!</p>
                             </a>
+                            </div>
                         </li>
                         <% }) %>
                </ul>

@@ -15,8 +15,9 @@
           <h2> Finished List (<%= finishedBooks.length %>) </h2>
          <div>
             <% if (finishedBooks.length > 0 ) { %>
-            <ul class="horizontal-list finished-list-centered"> <% finishedBooks.forEach((book)=> { %>
+            <ul class="book-grid finished-list-centered"> <% finishedBooks.forEach((book)=> { %>
                     <li>
+                    <div class="bookCard book-grid-item">
                         <a href="/book/<%= book._id%>"> 
                             <img src="<%= book.image %>" alt="">
                             <p> Completed!</p>

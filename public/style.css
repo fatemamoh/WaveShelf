@@ -332,7 +332,6 @@ footer{
     scroll-snap-type:x mandatory;
     -webkit-overflow-scrolling:touch;
     list-style:none;
-    padding:0;
 }
 .bookCard,
 .horizontal-list li{
@@ -678,4 +677,20 @@ scroll-snap-type: none;
 .form-group-inline label,
 .form-group-inline input {
     width: 100%; 
+}
+
+.book-grid {
+    display: flex;
+    flex-wrap: wrap;   
+    justify-content: center;   
+    gap: var(--spacing-large);
+    margin-top: var(--spacing-large);
+    list-style: none;
+    padding: 0;
+}
+
+.book-grid li {
+    width: 200px;
+    flex-shrink: 0;
+    margin-bottom: var(--spacing-medium);
 }
