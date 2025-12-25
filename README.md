@@ -25,7 +25,7 @@ Let’s face it: we’ve all finished a chapter and thought, *"I need to remembe
 ---
 
 ## 🚀 Getting Started
-- **Live Demo:** [Deployed App Link]()
+- **Live Demo:** [Deployed App Link](https://waveshelf.onrender.com/)
 - **Planning:** ![ERD Materials](/assets/erd.png)
 - **MockUp:** [Mockup Material](/assets/mokeup.jpeg)
 
